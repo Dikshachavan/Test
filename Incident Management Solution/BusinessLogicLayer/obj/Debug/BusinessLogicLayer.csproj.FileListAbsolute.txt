@@ -1,0 +1,6 @@
+F:\Diksha\MVC Project\Sajjanar\Incident Management Solution\Incident Management Solution\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+F:\Diksha\MVC Project\Sajjanar\Incident Management Solution\Incident Management Solution\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+F:\Diksha\MVC Project\Sajjanar\Incident Management Solution\Incident Management Solution\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csprojAssemblyReference.cache
+F:\Diksha\MVC Project\Sajjanar\Incident Management Solution\Incident Management Solution\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+F:\Diksha\MVC Project\Sajjanar\Incident Management Solution\Incident Management Solution\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+F:\Diksha\MVC Project\Sajjanar\Incident Management Solution\Incident Management Solution\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
