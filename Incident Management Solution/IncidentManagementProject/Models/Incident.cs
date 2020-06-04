@@ -17,8 +17,19 @@ namespace NewDemoProject.Models
         [Required]
         [Display(Name = "Incident Description")]
         public string Description { get; set; }
+        public string raised_by { get; set; }
+
+        public DateTime? created_on { get; set; }
+
+        public DateTime? altered_on { get; set; }
+
+        public string status { get; set; }
+
+        public string SupportedBy { get; set; }
         public IncidentCategoriesViewModel IncidentCategory { get; set; }
         public Employee Employee { get; set; }
+
+        public List<Incident> incidentarray { get; set; }
 
     }
 }
