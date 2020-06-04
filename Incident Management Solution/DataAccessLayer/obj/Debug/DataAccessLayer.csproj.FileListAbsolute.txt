@@ -4,3 +4,9 @@ F:\Diksha\MVC Project\Sajjanar\Incident Management Solution\Incident Management 
 F:\Diksha\MVC Project\Sajjanar\Incident Management Solution\Incident Management Solution\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
 F:\Diksha\MVC Project\Sajjanar\Incident Management Solution\Incident Management Solution\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 F:\Diksha\MVC Project\Sajjanar\Incident Management Solution\Incident Management Solution\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+F:\Diksha\MVC Project\Sajjanar\Dummy\Incident Management Solution\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+F:\Diksha\MVC Project\Sajjanar\Dummy\Incident Management Solution\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+F:\Diksha\MVC Project\Sajjanar\Dummy\Incident Management Solution\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+F:\Diksha\MVC Project\Sajjanar\Dummy\Incident Management Solution\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+F:\Diksha\MVC Project\Sajjanar\Dummy\Incident Management Solution\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+F:\Diksha\MVC Project\Sajjanar\Dummy\Incident Management Solution\DataAccessLayer\obj\Debug\DataAccessLayer.csprojAssemblyReference.cache

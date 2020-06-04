@@ -1,0 +1,74 @@
+﻿@model NewDemoProject.ViewModel.EmployeeProjectViewModel
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.js"></script>
+<h2>Profile Details</h2>
+@using (Html.BeginForm("SaveProfileDetails", "Profile", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-body">
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Employees.Name)
+                    @Html.TextBoxFor(model => model.Employees.Name, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Employees.Email_ID)
+                    @Html.TextBoxFor(model => model.Employees.Email_ID, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Employees.Employee_ID)
+                    @Html.TextBoxFor(model => model.Employees.Employee_ID, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Employees.Contact_Number)
+                    @Html.TextBoxFor(model => model.Employees.Contact_Number, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Project.Project_Name)
+                    @Html.TextBoxFor(model => model.Project.Project_Name, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Project.Department_Name)
+                    @Html.TextBoxFor(model => model.Project.Department_Name, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Project.Location)
+                    @Html.TextBoxFor(model => model.Project.Location, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Project.Workstation_Number)
+                    @Html.TextBoxFor(model => model.Project.Workstation_Number, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Project.Extension_Number)
+                    @Html.TextBoxFor(model => model.Project.Extension_Number, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Save" id="btnProfileSave" />
+                <input class="btn btn-primary"type="reset" value="Cancel" />
+            </div>
+
+        </div>
+    </div>
+}
+
