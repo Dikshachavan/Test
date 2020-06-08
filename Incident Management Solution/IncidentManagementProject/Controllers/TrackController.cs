@@ -10,15 +10,31 @@ using DataAccessLayer;
 using Microsoft.Ajax.Utilities;
 using NewDemoProject.Models;
 using NewDemoProject.ViewModel;
+using System.Security;
+
 
 namespace IncidentManagementProject.Controllers
 {
-    public class TrackController : Controller
+    public  class TrackController : Controller
     {
+
+        
         OnSubmittingIncident onSubmittingIncident = new OnSubmittingIncident();
         // GET: Track
+        public void getmail()
+        {
+            
+            var mail = User.Identity.Name;
+            if(mail!=null)
+            OnCreatingIncident(mail);
+
+        }
+
+        
+        [Authorize]
         public ActionResult OnCreatingIncident(string email)
         {
+            
             Incident incident = new Incident();
             DataSet ds = onSubmittingIncident.GetIncidents(email);
             List<Incident> incidentlists = new List<Incident>();
@@ -40,6 +56,24 @@ namespace IncidentManagementProject.Controllers
             }
             incident.incidentarray = incidentlists;
             return View(incident);
+        }
+
+        public ActionResult TrackStatus(int incident_id)
+        {
+            Incident incident = new Incident();
+            DataSet ds = onSubmittingIncident.TrackIncident(incident_id);
+            List<Incident> incidentlists = new List<Incident>();
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                Incident incidentlist = new Incident();
+                incidentlist.Title = ds.Tables[0].Rows[i]["incident_title"].ToString();
+                incidentlist.SupportedBy = ds.Tables[0].Rows[i]["handler_name"].ToString();
+                incidentlist.status = ds.Tables[0].Rows[i]["current status"].ToString();
+                incidentlists.Add(incidentlist);
+
+            }
+            incident.incidentarray = incidentlists;
+                return View(incident);
         }
     }
 }
