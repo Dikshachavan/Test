@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace NewDemoProject.Models
+namespace IncidentManagementProject.Models
 {
-    public class BusinessFunctionType
+    public class SR_BusinessFunction
     {
         public int Business_ID { get; set; }
         [Required(ErrorMessage = "Please select Business Function")]

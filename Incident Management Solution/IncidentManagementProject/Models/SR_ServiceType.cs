@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace NewDemoProject.Models
+namespace IncidentManagementProject.Models
 {
-    public class BusinessFunctionType
+    public class SR_ServiceType
     {
-        public int Business_ID { get; set; }
-        [Required(ErrorMessage = "Please select Business Function")]
+        public int Service_ID { get; set; }
+        [Required(ErrorMessage = "Please select Service")]
         public string Name { get; set; }
     }
 }

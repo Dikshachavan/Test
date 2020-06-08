@@ -4,121 +4,151 @@
     ViewBag.Title = "CreateIncident";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <style>
-    #txtAreaDescription{
-        height:200px;
-        width:900px !important;
+    #txtAreaDescription {
+        height: 200px;
+        width: 900px !important;
     }
+
     #txttitle {
         width: 900px !important;
     }
+
     .backgroundtextcolor {
         background-color: #f0f0f0 !important;
     }
-    
 </style>
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.js"></script>
-<p style="font-size:20px; color:orangered" >Enter New Incident Details</p>
-<div class="card">
-    <div class="card-body">
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title)
-            @Html.TextBoxFor(model => model.Title, new { @class = "form-control backgroundTextColor", @placeholder = "Enter Title Here", @id = "txtTitle" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description)
-            @Html.TextAreaFor(model => model.Description, new { @class = "form-control backgroundTextColor", @id = "txtAreaDescription" })
-        </div>
-        <div class="form-group">
-            <fieldset id="fieldsetLabel">
-                Incident Categorization
-                <div class="row">
+<p style="font-size:20px; color:orangered">Enter New Incident Details</p>
+@using (@Html.BeginForm("SaveCreatedIncidents", "CreateIncident", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-body">
 
-                    <div class="col-md-4">
-                        <label class="form-control-label">Business Function</label>
-                        @Html.DropDownList("businessfunction", ViewBag.BusinessFunctionValues as List<SelectListItem>, "--Choose--", new { @id = "ddlbusinessfunction", @class = "form-control col-md-4 backgroundTextColor" })
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-control-label">Services</label>
-                        @Html.DropDownList("Service", new SelectList(string.Empty), "--Choose--", new { @id = "ddlServices", @class = "form-control col-md-4 backgroundTextColor" })
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-control-label">Category</label>
-                        @Html.DropDownList("Category", new SelectList(string.Empty), "--Choose--", new { @id = "ddlCategories", @class = "form-control col-md-4 backgroundTextColor" })
-                    </div>
-
-                </div>
-            </fieldset>
-        </div>
-        <fieldset>
-            Employee Details
             <div class="form-group">
-                <div class="form-row">
-                    <div class="col-sm-4">
-                        @Html.LabelFor(model => model.Employee.First_Level_Manager_Name)
-                        @Html.TextBoxFor(model => model.Employee.First_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
-                    </div>
-                    <div class="col-sm-4">
-                        @Html.LabelFor(model => model.Employee.Second_Level_Manager_Name)
-                        @Html.TextBoxFor(model => model.Employee.Second_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
-                    </div>
-                    <div class="col-sm-4">
-                    </div>
+                @Html.LabelFor(model => model.Title)
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control backgroundTextColor", @placeholder = "Enter Title Here", @id = "txtTitle" })
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Title)
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="form-row">
-                    <div class="col-sm-4">
-                        @Html.LabelFor(model => model.Employee.Project.Project_Name)
-                        @Html.TextBoxFor(model => model.Employee.Project.Project_Name, new { @class = "form-control", @disabled = "disabled" })
-                    </div>
-                    <div class="col-sm-4">
-                        @Html.LabelFor(model => model.Employee.Project.Workstation_Number)
-                        @Html.TextBoxFor(model => model.Employee.Project.Workstation_Number, new { @class = "form-control", @disabled = "disabled" })
-                    </div>
-                    <div class="col-sm-4">
-                    </div>
+                @Html.LabelFor(model => model.Description)
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control backgroundTextColor", @id = "txtAreaDescription" })
+                <div class="text-danger">
+                    @Html.ValidationMessageFor(model => model.Description)
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="form-row">
-                    <div class="col-sm-4">
-                        @Html.LabelFor(model => model.Employee.Project.Extension_Number)
-                        @Html.TextBoxFor(model => model.Employee.Project.Extension_Number, new { @class = "form-control", @disabled = "disabled" })
-                    </div>
-                    <div class="col-sm-4">
-                        @Html.LabelFor(model => model.Employee.Employee_ID)
-                        @Html.TextBoxFor(model => model.Employee.Employee_ID, new { @class = "form-control", @disabled = "disabled" })
-                    </div>
-                    <div class="col-sm-4">
+                <div>
+                    <h5 class="text-primary">Incident Categorization</h5>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <label class="form-control-label">Business Function</label>
+                            @Html.DropDownList("businessfunction", ViewBag.BusinessFunctionValues as List<SelectListItem>, "--Choose--", new { @id = "ddlbusinessfunction", @class = "form-control col-md-4 backgroundTextColor" })
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-control-label">Services</label>
+                            @Html.DropDownList("Service", new SelectList(string.Empty), "--Choose--", new { @id = "ddlServices", @class = "form-control col-md-4 backgroundTextColor" })
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-control-label">Category</label>
+                            @Html.DropDownList("Category", new SelectList(string.Empty), "--Choose--", new { @id = "ddlCategories", @class = "form-control col-md-4 backgroundTextColor" })
+                            <input type="hidden" id="hdnCategoryID" name="SelectedCategoryID" />
+                            @Html.HiddenFor(model=>model.IncidentCategory.CategoryTypes.Category_ID)
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </fieldset>
 
-        <div>
-            <input type="reset" value="Cancel" class="btn btn-primary" />
-            <input type="submit" value="Submit" class="btn btn-primary" />
+            <div id="divEmployeeDetails">
+                <div>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                    </a>
+                    <h5 class="text-primary">Employee Details</h5>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Employee.First_Level_Manager_Name)
+                            @Html.TextBoxFor(model => model.Employee.First_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Employee.Second_Level_Manager_Name)
+                            @Html.TextBoxFor(model => model.Employee.Second_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Employee.Project.Project_Name)
+                            @Html.TextBoxFor(model => model.Employee.Project.Project_Name, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Employee.Project.Workstation_Number)
+                            @Html.TextBoxFor(model => model.Employee.Project.Workstation_Number, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Employee.Project.Extension_Number)
+                            @Html.TextBoxFor(model => model.Employee.Project.Extension_Number, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Employee.Employee_ID)
+                            @Html.TextBoxFor(model => model.Employee.Employee_ID, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Attachment)
+            </div>
+
+            <div>
+                <input type="reset" value="Cancel" class="btn btn-primary" id="btnReset" />
+                <input type="submit" value="Submit" class="btn btn-primary" id="btnSubmitIncident" />
+            </div>
         </div>
+
     </div>
-    
-</div>
+}
+
 
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
         $('#ddlbusinessfunction').change(function () {
-            if ($('#ddlbusinessfunction').val() == "" ) {
+            if ($('#ddlbusinessfunction').val() == "") {
                 $("#ddlServices").empty();
                 $('#ddlCategories').empty();
                 $("#ddlServices").append($('<option/>', { value: -1, text: '--Choose--' }));
                 $('#ddlCategories').append($('<option/>', { value: -1, text: '--Choose--' }));
-               
+
             }
             else {
                 $.ajax({
@@ -158,5 +188,9 @@
                 });
             }
         })
+        $('#ddlCategories').change(function () {
+            $("#hdnCategoryID").val($(this).find("option:selected").value);
+        })
+
     })
 </script>

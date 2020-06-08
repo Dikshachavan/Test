@@ -79,6 +79,29 @@ namespace DataAccessLayer
                 connection.Close();
             }            
         }
+        public DataSet GetEmployeeDetails(string Email_id)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand("Get_Employee_Details", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@email_id", Email_id);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataSet dataSet = new DataSet();
+                adapter.Fill(dataSet);
+                return dataSet;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+        }
+        
 
     }
 }
