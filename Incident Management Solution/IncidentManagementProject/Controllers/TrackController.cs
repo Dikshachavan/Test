@@ -21,22 +21,16 @@ namespace IncidentManagementProject.Controllers
         
         OnSubmittingIncident onSubmittingIncident = new OnSubmittingIncident();
         // GET: Track
-        public void getmail()
-        {
+       
             
-            var mail = User.Identity.Name;
-            if(mail!=null)
-            OnCreatingIncident(mail);
-
-        }
-
+            
         
-        [Authorize]
-        public ActionResult OnCreatingIncident(string email)
+        
+        public ActionResult OnCreatingIncident()
         {
-            
+            string mail = Session["username"].ToString();
             Incident incident = new Incident();
-            DataSet ds = onSubmittingIncident.GetIncidents(email);
+            DataSet ds = onSubmittingIncident.GetIncidents(mail);
             List<Incident> incidentlists = new List<Incident>();
 
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
