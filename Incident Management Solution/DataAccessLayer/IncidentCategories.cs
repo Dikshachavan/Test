@@ -83,6 +83,7 @@ namespace DataAccessLayer
         {
             try
             {
+                connection.Open();
                 SqlCommand command = new SqlCommand("Get_Employee_Details", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@email_id", Email_id);

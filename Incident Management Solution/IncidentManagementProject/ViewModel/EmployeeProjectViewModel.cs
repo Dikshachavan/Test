@@ -10,5 +10,10 @@ namespace NewDemoProject.ViewModel
     {
         public Employee Employees { get; set; }
         public Project Project { get; set; }
+        public EmployeeProjectViewModel()
+        {
+            Employees = new Employee();
+            Project = new Project();
+        }
     }
 }
