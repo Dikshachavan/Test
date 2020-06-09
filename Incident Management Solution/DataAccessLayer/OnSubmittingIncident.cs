@@ -36,5 +36,28 @@ namespace DataAccessLayer
                 connection.Close();
             }
         }
+
+        public DataSet TrackIncident(int incident_id)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand("track_incident", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@incident_id", incident_id);
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                return ds;
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
