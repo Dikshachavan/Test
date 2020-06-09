@@ -8,6 +8,7 @@ namespace IncidentManagementProject.Models
     public class IncidentHandler
     {
         public int Handler_ID { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; }   
+        
     }
 }
