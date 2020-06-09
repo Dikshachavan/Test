@@ -41,7 +41,8 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Description)
-                @Html.TextAreaFor(model => model.Description, new { @class = "form-control backgroundTextColor", @id = "txtAreaDescription" })
+                
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control backgroundTextColor  ckeditor", @id = "txtAreaDescription" })
                 <div class="text-danger">
                     @Html.ValidationMessageFor(model => model.Description)
                 </div>
@@ -141,7 +142,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
+      
         $('#ddlbusinessfunction').change(function () {
             if ($('#ddlbusinessfunction').val() == "") {
                 $("#ddlServices").empty();
