@@ -17,15 +17,8 @@ namespace IncidentManagementProject.Controllers
 {
     public  class TrackController : Controller
     {
-
-        
         OnSubmittingIncident onSubmittingIncident = new OnSubmittingIncident();
         // GET: Track
-       
-            
-            
-        
-        
         public ActionResult OnCreatingIncident()
         {
             string mail = Session["username"].ToString();
