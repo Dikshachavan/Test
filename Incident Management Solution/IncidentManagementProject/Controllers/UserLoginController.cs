@@ -13,6 +13,8 @@ namespace IncidentManagementProject.Controllers
 {
     public class UserLoginController : Controller
     {
+        public static string mainconn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+        SqlConnection sqlconn = new SqlConnection(mainconn);
         // GET: UserLogin
         public ActionResult Index()
         {
@@ -22,28 +24,39 @@ namespace IncidentManagementProject.Controllers
         [HttpPost]
         public ActionResult Index(LoginClass lc)
         {
-            string mainconn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
-            SqlConnection sqlconn = new SqlConnection(mainconn);
-            SqlCommand sqlcomm = new SqlCommand("user_login");
-            sqlconn.Open();
-            sqlcomm.Connection = sqlconn;
-            sqlcomm.CommandType = CommandType.StoredProcedure;
-            sqlcomm.Parameters.AddWithValue("@employee_mail_id", lc.UserName);
-            sqlcomm.Parameters.AddWithValue("@password", lc.Password);
-            SqlDataReader sdr = sqlcomm.ExecuteReader();
-            if (sdr.Read())
+            try
             {
-                FormsAuthentication.SetAuthCookie(lc.UserName, true);
-                Session["username"] = lc.UserName.ToString();
-                return RedirectToAction("welcome");
-            }
-            else
-            {
+                
+                SqlCommand sqlcomm = new SqlCommand("user_login");
+                sqlconn.Open();
+                sqlcomm.Connection = sqlconn;
+                sqlcomm.CommandType = CommandType.StoredProcedure;
+                sqlcomm.Parameters.AddWithValue("@employee_mail_id", lc.UserName);
+                sqlcomm.Parameters.AddWithValue("@password", lc.Password);
+                SqlDataReader sdr = sqlcomm.ExecuteReader();
+                if (sdr.Read())
+                {
+                    FormsAuthentication.SetAuthCookie(lc.UserName, true);
+                    Session["username"] = lc.UserName.ToString();
+                    Session["employeeName"] = Convert.ToString(sdr["employee_name"]);
+                    return RedirectToAction("welcome");
+                }
+                else
+                {
 
-                ViewData["message"] = "Login failed, Invalid User details";
+                    ViewData["message"] = "Login failed, Invalid User details";
+                }
+                return View();
             }
-            sqlconn.Close();
-            return View();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                sqlconn.Close();
+            }
+
         }
         public ActionResult welcome()
         {
