@@ -1,0 +1,32 @@
+﻿@model NewDemoProject.Models.Incident
+
+@{
+    ViewBag.Title = "TrackStatus";
+}
+
+@foreach (var item in Model.incidentarray)
+{
+    <div class="container" style="background-color:antiquewhite">
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width" />
+
+            <script src="~/Scripts/jquery-1.10.2.js"></script>
+        </head>
+        <body>
+            @using (Html.BeginForm("OnSubmit", "incidentlist", FormMethod.Get))
+            {
+
+
+                    <div class="p-2"><p>Incident Title :  <br /> <b>@Html.DisplayFor(modelitem => item.Title)</b></p></div>
+                    <div class="p-2"><p>Status : <b>@Html.DisplayFor(modelitem => item.status)</b></p></div>
+                    <div class="p-2"><p>Supported By :<b>@Html.DisplayFor(modelitem => item.SupportedBy)</b></p></div>
+
+            }
+        </body>
+        </html>
+</div>
+}
+
+

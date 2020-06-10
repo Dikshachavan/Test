@@ -10,6 +10,7 @@ using DataAccessLayer;
 using Microsoft.Ajax.Utilities;
 using NewDemoProject.Models;
 using NewDemoProject.ViewModel;
+using System.Text;
 
 namespace NewDemoProject.Controllers
 {
@@ -76,15 +77,19 @@ namespace NewDemoProject.Controllers
                 incident.Employee.Second_Level_Manager_Name = Convert.ToString(dataRow["Second_Level_Manager_Name"]);
                 incident.Employee.Project.Project_Name = Convert.ToString(dataRow["project_name"]);
                 incident.Employee.Project.Workstation_Number = Convert.ToString(dataRow["workstation_number"]);
-                incident.Employee.Project.Extension_Number = Convert.ToString(dataRow["extension_number"]);
+                incident.Employee.Project.Extension_Number = Convert.ToString(dataRow["extention_number"]);
             }
             return incident;
 
         }
+
+        [ValidateInput(false)]
         public ActionResult SaveCreatedIncidents(Incident incident,FormCollection formdata)
         {
+            
             try
             {
+                
                 string SR_categoryId =null;
                 string handlerID=null;
                 SqlCommand command = new SqlCommand("save_incident", connection);
