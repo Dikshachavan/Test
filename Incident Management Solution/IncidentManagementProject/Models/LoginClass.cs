@@ -26,6 +26,7 @@ namespace IncidentManagementProject.Models
         {
             get; set;
         }
+        public string EmployeeName { get; set; }
 
     }
 }
