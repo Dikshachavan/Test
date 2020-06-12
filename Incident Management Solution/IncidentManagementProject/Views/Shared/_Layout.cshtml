@@ -11,18 +11,23 @@
 
 <body>
     <style>
-        /*h3 {
-            color: white;
-        }*/  
+        .pointer{
+            cursor:pointer;
+        }  
     </style>
 
     <div>
         <nav class="navbar navbar-inverse" style="background-color: mediumorchid">
-                <div class="container-fluid" style="text-align:left">
-                    <div class="navbar-header">
-                        <a style="color:white;" class="navbar-brand" href="#">Incident Management</a>
-                    </div>
+            <div class="container-fluid">
+                <div class="navbar-header"  style="text-align:left">
+                    <a style="color:white;" class="navbar-brand" href="#">Incident Management</a>
                 </div>
+                <div id="logout" style="text-align:right">
+                    <a href="/UserLogin/Index">
+                        <img src="~/Images/logout-icon.png" class="pointer" style="width:20px;height:20px" title="Logout" />
+                    </a>
+                </div>
+            </div>
 
                 <div class="col-md-12">
                     <span style="text-align:center">
@@ -37,7 +42,8 @@
                             <input class="form-control mr-lg-2" style="width:400px; border-radius:50px" type="search" placeholder="Search here" aria-label="Search">
                         </form>
                     </div>*@
-                </div>          
+                </div> 
+            
             
         </nav>
     </div>
