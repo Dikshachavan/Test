@@ -39,12 +39,11 @@ namespace IncidentManagementProject.Controllers
                     FormsAuthentication.SetAuthCookie(lc.UserName, true);
                     Session["username"] = lc.UserName.ToString();
                     Session["employeeName"] = Convert.ToString(sdr["employee_name"]);
-                    return RedirectToAction("welcome");
+                    return RedirectToAction("Index", "LandingPage");
                 }
                 else
                 {
-
-                    ViewData["message"] = "Login failed, Invalid User details";
+                    ViewData["message"] = "Opps Login failed, Invalid User details !!";
                 }
                 return View();
             }

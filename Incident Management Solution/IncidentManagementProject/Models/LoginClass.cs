@@ -9,8 +9,8 @@ namespace IncidentManagementProject.Models
     public class LoginClass
     {
         [EmailAddress(ErrorMessage = "Email Address not valid !")]
-        [Required(ErrorMessage = "Please enter your Username !")]
-        [Display(Name = "Enter Username :")]
+        [Required(ErrorMessage = "Please enter your Email ID !")]
+        [Display(Name = "Enter Email :")]
 
         public string UserName
         {
