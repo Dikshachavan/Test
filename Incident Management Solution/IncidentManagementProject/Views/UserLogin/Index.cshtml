@@ -11,6 +11,11 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $('#errorMsg').css('display', 'none');
+        })
+    </script>
 </head>
 <body>
     @Scripts.Render("~/bundles/jquery")
@@ -48,7 +53,7 @@
             </div>
         </div>
 
-        <h3> @ViewData["message"]</h3>
+        <h5 id="errorMsg" class="text-danger"> @ViewData["message"]</h5>
     }
 
  
