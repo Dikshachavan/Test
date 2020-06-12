@@ -3,44 +3,45 @@
 @{
     ViewBag.Title = "OnCreatingIncident";
 }
+<div class="container">
+    <h3 style="font-family:Arial;padding-top:10px;padding-bottom:10px"><b>@Model.incidentarray.Count Ticket(s)</b> in my Queue</h3>
+    @foreach (var item in Model.incidentarray)
+    {
+        <div style="background-color:antiquewhite">
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta name="viewport" content="width=device-width" />
 
-<h2>@Model.incidentarray.Count Ticket(s) in my Queue</h2>
-@foreach (var item in Model.incidentarray)
-{
-    <div class="container" style="background-color:antiquewhite">
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta name="viewport" content="width=device-width" />
+                <script src="~/Scripts/jquery-1.10.2.js"></script>
+            </head>
+            <body>
+                @using (Html.BeginForm("OnSubmit", "incidentlist", FormMethod.Get))
+                {
+                    <div class="d-flex justify-content-between" style="height:60px">
+                        <div class="p-2"><p>Incident Number  : <br /> <b style="color:royalblue">INC</b><b style="color:royalblue">@Html.DisplayFor(modelitem => item.Incident_ID)</b></p></div>
+                        <div class="p-2"><p>Incident Title :  <br /> <b>@Html.DisplayFor(modelitem => item.Title)</b></p></div>
+                        <div class="p-2"><p>Status : <b>@Html.DisplayFor(modelitem => item.status)</b></p></div>
+                    </div>
 
-            <script src="~/Scripts/jquery-1.10.2.js"></script>
-        </head>
-        <body>
-            @using (Html.BeginForm("OnSubmit", "incidentlist", FormMethod.Get))
-            {
-                <div class="d-flex justify-content-between" style="height:60px">
-                    <div class="p-2"><p>Incident Number  : <br /> <b style="color:royalblue">INC</b><b style="color:royalblue">@Html.DisplayFor(modelitem => item.Incident_ID)</b></p></div>
-                    <div class="p-2"><p>Incident Title :  <br /> <b>@Html.DisplayFor(modelitem => item.Title)</b></p></div>
-                    <div class="p-2"><p>Status : <b>@Html.DisplayFor(modelitem => item.status)</b></p></div>
-                </div>
+                    <div class="d-flex justify-content-between" style="font-size:small; height:60px">
+                        <div class="p-2"><p>Submitted By : <br /> <b>@Html.DisplayFor(modelitem => item.raised_by)</b></p></div>
+                        <div class="p-2"><p>Created On :  <br /> <b>@Html.DisplayFor(modelitem => item.created_on)</b></p> </div>
+                        <div class="p-2"><p>Last Edited On :  <br /> <b>@Html.DisplayFor(modelitem => item.altered_on)</b></p></div>
+                    </div>
 
-                <div class="d-flex justify-content-between" style="font-size:small; height:60px">
-                    <div class="p-2"><p>Submitted By : <br /> <b>@Html.DisplayFor(modelitem => item.raised_by)</b></p></div>
-                    <div class="p-2"><p>Created On :  <br /> <b>@Html.DisplayFor(modelitem => item.created_on)</b></p> </div>
-                    <div class="p-2"><p>Last Edited On :  <br /> <b>@Html.DisplayFor(modelitem => item.altered_on)</b></p></div>
-                </div>
+                    <div class="d-flex bd-highlight mb-3" style="font-size:small; height:60px">
+                        <div class="p-2 bd-highlight"><label>Description : <br />@Html.DisplayFor(modelitem => item.Description)</label> </div>
+                        <div class="ml-auto p-2 bd-highlight"><p>Supported By : <br /> <b>@Html.DisplayFor(modelitem => item.SupportedBy)</b></p></div>
+                    </div>
+                    <hr />
 
-                <div class="d-flex bd-highlight mb-3" style="font-size:small; height:60px">
-                    <div class="p-2 bd-highlight"><label>Description : <br />@Html.DisplayFor(modelitem => item.Description)</label> </div>
-                    <div class="ml-auto p-2 bd-highlight"><p>Supported By : <br /> <b>@Html.DisplayFor(modelitem => item.SupportedBy)</b></p></div>
-                </div>
-                <hr />
+                }
+            </body>
 
-            }
-        </body>
-
-    </html>
-</div>
+        </html>
+    </div>
 
 }
 
+</div>
