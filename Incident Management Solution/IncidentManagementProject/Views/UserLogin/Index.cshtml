@@ -20,19 +20,28 @@
 <body>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <style>
+        .container-fluid{
+            
+            margin-left:450px;
+        }
+    </style>
 
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
+    <div class="container-fluid">
         <div class="form-horizontal">
-            <h1>Login</h1>
+
+            <h1 style="margin-left:100px">Login</h1>
             <br />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-lg-4">
                     @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                 </div>
@@ -40,22 +49,26 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-lg-4">
                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <br />
-            <div class="form-group">
-                <input class="btn btn-primary" type="submit" value="Login" />
+            <div class="form-group" style="margin-left:100px;">
+                <input class="btn btn-primary" type="submit" value="Login" />&nbsp;&nbsp;
                 <input class="btn btn-primary" type="reset" value="Cancel" />
             </div>
         </div>
 
         <h5 id="errorMsg" class="text-danger"> @ViewData["message"]</h5>
+    </div>
+ 
+
+
     }
 
- 
+
 </body>
 </html>
