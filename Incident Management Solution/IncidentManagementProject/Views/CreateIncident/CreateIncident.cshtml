@@ -11,163 +11,151 @@
         width: 900px !important;
     }
 
-    #txttitle {
-        width: 900px !important;
-    }
-
     .backgroundtextcolor {
         background-color: #f0f0f0 !important;
     }
-        
+
+    .txtColor {
+        color: #395476 !important;
+        font-weight: bold;
+    }
 </style>
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-<p style="font-size:20px; color:orangered">Enter New Incident Details</p>
-@using (@Html.BeginForm("SaveCreatedIncidents", "CreateIncident", FormMethod.Post))
-{
-    <div class="card">
-        <div class="card-body">
+    @if (ViewBag.Message == "ServiceRequestIncident")
+    {
+        <h4 style="font-size:20px; color:orangered">Enter New Service Request Details</h4>
+    }
+    else
+    {
+        <h4 style="font-size:20px; color:orangered">Enter New Incident Details</h4>
+    }
+    @using (@Html.BeginForm("SaveCreatedIncidents", "CreateIncident", FormMethod.Post))
+    {
+        <div class="card">
+            <div class="card-body">
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Title)
-                @Html.TextBoxFor(model => model.Title, new { @class = "form-control backgroundTextColor", @placeholder = "Enter Title Here", @id = "txtTitle" })
-                @*<div class="text-danger">
-                    @Html.ValidationMessageFor(model => model.Title)
-                </div>*@
-                <div id="txtTitleErrorMsg" class="text-danger">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, new { @class = "txtColor" })
+                    <span style="color:red">*</span>
+                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control col-md-8 backgroundTextColor", @placeholder = "Enter Title Here", @id = "txtTitle" })
+                    <div id="txtTitleErrorMsg" class="text-danger">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, new { @class = "txtColor" })
+                    <span style="color: red ">*</span>
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control col-md-8 backgroundTextColor  ckeditor", @id = "txtAreaDescription" })
+                    <div id="txtAreaDescriptionErrorMsg" class="text-danger">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <h4 class="text-primary">Incident Categorization</h4>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label class="form-control-label txtColor">Business Function</label>
+                                <span style="color:red">*</span>
+                                @Html.DropDownList("BusinessFunction", ViewBag.BusinessFunctionValues as List<SelectListItem>, "--Choose--", new { @id = "ddlbusinessfunction", @class = "form-control col-md-6 backgroundTextColor" })
+                                <div id="ddlBusunessFunErrorMsg" class="text-danger">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-control-label txtColor">Services</label>
+                                <span style="color:red">*</span>
+                                @Html.DropDownList("Service", new SelectList(string.Empty), "--Choose--", new { @id = "ddlServices", @class = "form-control col-md-6 backgroundTextColor" })
+                                <div id="ddlServiceErrorMsg" class="text-danger"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-control-label txtColor">Category</label>
+                                <span style="color:red">*</span>
+                                @Html.DropDownList("Category", new SelectList(string.Empty), "--Choose--", new { @id = "ddlCategories", @class = "form-control col-md-6 backgroundTextColor" })
+                                <div id="ddlCategoryErrorMsg" class="text-danger"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divEmployeeDetails">
+
+                    <div id="EmployeeProjectDiv">
+                        <h4 class="text-primary">Employee Details</h4>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-sm-4">
+                                    @Html.LabelFor(model => model.Employee.First_Level_Manager_Name, new { @class = "txtColor" })
+                                    @Html.TextBoxFor(model => model.Employee.First_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.LabelFor(model => model.Employee.Second_Level_Manager_Name, new { @class = "txtColor" })
+                                    @Html.TextBoxFor(model => model.Employee.Second_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                                <div class="col-sm-4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-sm-4">
+                                    @Html.LabelFor(model => model.Employee.Project.Project_Name, new { @class = "txtColor" })
+                                    @Html.TextBoxFor(model => model.Employee.Project.Project_Name, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.LabelFor(model => model.Employee.Project.Workstation_Number, new { @class = "txtColor" })
+                                    @Html.TextBoxFor(model => model.Employee.Project.Workstation_Number, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                                <div class="col-sm-4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-sm-4">
+                                    @Html.LabelFor(model => model.Employee.Project.Extension_Number, new { @class = "txtColor" })
+                                    @Html.TextBoxFor(model => model.Employee.Project.Extension_Number, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.LabelFor(model => model.Employee.Employee_ID, new { @class = "txtColor" })
+                                    @Html.TextBoxFor(model => model.Employee.Employee_ID, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                                <div class="col-sm-4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Description)
-                
-                @Html.TextAreaFor(model => model.Description, new { @class = "form-control backgroundTextColor  ckeditor", @id = "txtAreaDescription" })
-                @*<div class="text-danger">
-                    @Html.ValidationMessageFor(model => model.Description)
-                </div>*@
-                <div id="txtAreaDescriptionErrorMsg" class="text-danger">
 
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Attachment)
+                    <input type="file" name="File Attachment" /> 
                 </div>
-            </div>
 
-            <div class="form-group">
                 <div>
-                    <h5 class="text-primary">Incident Categorization</h5>
-                    <div class="row">
-
-                        <div class="col-md-4">
-                            <label class="form-control-label">Business Function</label>
-                            @Html.DropDownList("BusinessFunction", ViewBag.BusinessFunctionValues as List<SelectListItem>, "--Choose--", new { @id = "ddlbusinessfunction", @class = "form-control col-md-4 backgroundTextColor" })
-                        <div id="ddlBusunessFunErrorMsg" class="text-danger">                            
-                        </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-control-label">Services</label>
-                            @Html.DropDownList("Service", new SelectList(string.Empty), "--Choose--", new { @id = "ddlServices", @class = "form-control col-md-4 backgroundTextColor" })
-                            <div id="ddlServiceErrorMsg" class="text-danger"></div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-control-label">Category</label>
-                            @Html.DropDownList("Category", new SelectList(string.Empty), "--Choose--", new { @id = "ddlCategories", @class = "form-control col-md-4 backgroundTextColor" })
-                            <div id="ddlCategoryErrorMsg" class="text-danger"></div>
-                        </div>
-
-                    </div>
+                    <input type="reset" value="Cancel" class="btn btn-primary" id="btnReset" />
+                    <input type="submit" value="Submit" class="btn btn-primary" id="btnSubmitIncident" />
                 </div>
             </div>
 
-            <div id="divEmployeeDetails">
-                <div id="empheader" class="form-group">
-                    <dv id="plusicon" class="btn-group" role="group">
-                        <svg id="EmployeeSvgplusicon" class="bi bi-plus-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z" />
-                            <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z" />
-                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                        </svg>
-                    </dv>
-                    <dv id="EmployeeSvgminusicon" class="btn-group" role="group">
-                        <svg style="display:none" class="bi bi-dash-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                            <path fill-rule="evenodd" d="M3.5 8a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5z" />
-                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                        </svg>
-                    </dv>
-               <h5 class="text-primary">Employee Details</h5>
-
-                </div>
-
-                <div id="EmployeeProjectDiv">
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-sm-4">
-                                @Html.LabelFor(model => model.Employee.First_Level_Manager_Name)
-                                @Html.TextBoxFor(model => model.Employee.First_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
-                            </div>
-                            <div class="col-sm-4">
-                                @Html.LabelFor(model => model.Employee.Second_Level_Manager_Name)
-                                @Html.TextBoxFor(model => model.Employee.Second_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
-                            </div>
-                            <div class="col-sm-4">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-sm-4">
-                                @Html.LabelFor(model => model.Employee.Project.Project_Name)
-                                @Html.TextBoxFor(model => model.Employee.Project.Project_Name, new { @class = "form-control", @disabled = "disabled" })
-                            </div>
-                            <div class="col-sm-4">
-                                @Html.LabelFor(model => model.Employee.Project.Workstation_Number)
-                                @Html.TextBoxFor(model => model.Employee.Project.Workstation_Number, new { @class = "form-control", @disabled = "disabled" })
-                            </div>
-                            <div class="col-sm-4">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-sm-4">
-                                @Html.LabelFor(model => model.Employee.Project.Extension_Number)
-                                @Html.TextBoxFor(model => model.Employee.Project.Extension_Number, new { @class = "form-control", @disabled = "disabled" })
-                            </div>
-                            <div class="col-sm-4">
-                                @Html.LabelFor(model => model.Employee.Employee_ID)
-                                @Html.TextBoxFor(model => model.Employee.Employee_ID, new { @class = "form-control", @disabled = "disabled" })
-                            </div>
-                            <div class="col-sm-4">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Attachment)
-            </div>
-
-            <div>
-                <input type="reset" value="Cancel" class="btn btn-primary" id="btnReset" />
-                <input type="submit" value="Submit" class="btn btn-primary" id="btnSubmitIncident" />
-            </div>
         </div>
+    }
 
-    </div>
-}
 
 <script type="text/javascript">
     $(document).ready(function () {
         $('#divEmployeeDetails').hide();
-      
+
         $('#ddlbusinessfunction').change(function () {
             if ($('#ddlbusinessfunction').val() == "") {
                 $("#ddlServices").empty();
@@ -226,7 +214,7 @@
             else {
                 $('#ddlCategoryErrorMsg').hide();
             }
-            
+
         })
 
         $('#btnSubmitIncident').click(function () {
@@ -235,28 +223,23 @@
             var ddlCategory = $('#ddlCategories').val();
             var title = $('#txtTitle').val();
             var description = $('#txtAreaDescription').val();
-            if (title != "")
-            {
+            if (title != "") {
                 $('#txtTitleErrorMsg').hide();
             }
-            if (description != "")
-            {
+            if (description != "") {
                 $('#txtAreaDescriptionErrorMsg').hide();
             }
-            if (ddlService == "" || ddlService == "-1")
-            {
+            if (ddlService == "" || ddlService == "-1") {
                 $('#ddlServiceErrorMsg').html("Please select Service");
             }
-            if (title == "" || description == "" || ddlBusinessFunction == "" || ddlCategory == "" || ddlCategory == "-1")
-            {
+            if (title == "" || description == "" || ddlBusinessFunction == "" || ddlCategory == "" || ddlCategory == "-1") {
                 $('#txtTitleErrorMsg').html("Please Provide Incident Title");
                 $('#txtAreaDescriptionErrorMsg').html("Please Provide Incident Description");
                 $('#ddlBusunessFunErrorMsg').html("Please select business function");
                 $('#ddlCategoryErrorMsg').html("Please select Category");
                 return false;
             }
-            else if (title != "" || description != "" || ddlBusinessFunction != "" || ddlService != "" || ddlCategory!="")
-            {
+            else if (title != "" || description != "" || ddlBusinessFunction != "" || ddlService != "" || ddlCategory != "") {
                 $('#txtTitleErrorMsg').hide();
                 $('#txtAreaDescriptionErrorMsg').hide();
                 $('#ddlBusunessFunErrorMsg').hide();
@@ -264,9 +247,9 @@
                 $('#ddlCategoryErrorMsg').hide();
                 return true;
             }
-            
-        })
 
-    
+        })
+       
+
     })
 </script>
