@@ -8,6 +8,7 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Security;
+using IncidentManagementProject.Common;
 
 namespace IncidentManagementProject.Controllers
 {
@@ -16,12 +17,14 @@ namespace IncidentManagementProject.Controllers
         public static string mainconn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
         SqlConnection sqlconn = new SqlConnection(mainconn);
         // GET: UserLogin
+        [LogExceptions]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
+        [LogExceptions]
         public ActionResult Index(LoginClass lc)
         {
             try
@@ -57,6 +60,8 @@ namespace IncidentManagementProject.Controllers
             }
 
         }
+
+        [LogExceptions]
         public ActionResult welcome()
         {
             return View();

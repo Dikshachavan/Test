@@ -11,9 +11,11 @@ using Microsoft.Ajax.Utilities;
 using NewDemoProject.Models;
 using NewDemoProject.ViewModel;
 using System.Text;
+using IncidentManagementProject.Common;
 
 namespace NewDemoProject.Controllers
 {
+    
     public class CreateIncidentController : Controller
     {
         public static string MainConn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
@@ -21,6 +23,7 @@ namespace NewDemoProject.Controllers
         IncidentCategories IncidentCategories=new IncidentCategories();
         Incident incident = new Incident();
 
+        [LogExceptions]
         // GET: CreateIncident
         public ActionResult CreateIncident()
         {
@@ -38,6 +41,8 @@ namespace NewDemoProject.Controllers
             FetchUserDetails(Session["username"].ToString());
             return View(incident);
         }
+
+        [LogExceptions]
         public JsonResult GetIncidentServices(int Business_id)
         {
             DataSet dataSet = IncidentCategories.GetServices(Business_id);
@@ -52,6 +57,8 @@ namespace NewDemoProject.Controllers
             }
             return Json(list,JsonRequestBehavior.AllowGet);
         }
+
+        [LogExceptions]
         public JsonResult GetIncidentCategories(int Service_id)
         {
             DataSet dataSet = IncidentCategories.GetCategories(Service_id);
@@ -67,6 +74,8 @@ namespace NewDemoProject.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        [LogExceptions]
         public Incident FetchUserDetails(string Email_id)
         {
             DataSet ds = IncidentCategories.GetEmployeeDetails(Email_id);
@@ -84,6 +93,7 @@ namespace NewDemoProject.Controllers
         }
 
         [ValidateInput(false)]
+        [LogExceptions]
         public ActionResult SaveCreatedIncidents(Incident incident,FormCollection formdata)
         {
             
