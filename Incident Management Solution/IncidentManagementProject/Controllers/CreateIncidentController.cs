@@ -12,16 +12,18 @@ using NewDemoProject.Models;
 using NewDemoProject.ViewModel;
 using System.Text;
 using IncidentManagementProject.Common;
+using DataAccessLayer.Constants;
 
 namespace NewDemoProject.Controllers
 {
     
     public class CreateIncidentController : Controller
     {
-        public static string MainConn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+        public static string MainConn = ConfigurationManager.ConnectionStrings["IncidentManagement"].ConnectionString;
         SqlConnection connection = new SqlConnection(MainConn);
         IncidentCategories IncidentCategories=new IncidentCategories();
         Incident incident = new Incident();
+        static DBConstants DBConstants = new DBConstants();
 
         [LogExceptions]
         // GET: CreateIncident
@@ -102,7 +104,7 @@ namespace NewDemoProject.Controllers
                 
                 string SR_categoryId =null;
                 string handlerID=null;
-                SqlCommand command = new SqlCommand("save_incident", connection);
+                SqlCommand command = new SqlCommand(DBConstants.Save_Incident, connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@incident_title", incident.Title);
                 command.Parameters.AddWithValue("@incident_description", incident.Description);

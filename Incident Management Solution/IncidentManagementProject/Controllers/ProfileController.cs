@@ -9,14 +9,17 @@ using System.Web.Mvc;
 using System.Data;
 using DataAccessLayer;
 using IncidentManagementProject.Common;
+using DataAccessLayer.Constants;
 
 namespace NewDemoProject.Controllers
 {
     public class ProfileController : Controller
     {
-        public static string mainConn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+        public static string mainConn = ConfigurationManager.ConnectionStrings["IncidentManagement"].ConnectionString;
         SqlConnection connection = new SqlConnection(mainConn);
         public static IncidentCategories IncidentCategories = new IncidentCategories();
+        static DBConstants DBConstants =new DBConstants();
+
         // GET: Profile
         [LogExceptions]
         public ActionResult Index()
@@ -43,7 +46,7 @@ namespace NewDemoProject.Controllers
         {
             try
             {
-                SqlCommand command = new SqlCommand("save_employee", connection);
+                SqlCommand command = new SqlCommand(DBConstants.Save_Employee, connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@employee_mail_id", Session["username"]);
                 command.Parameters.AddWithValue("@employee_id", employeeProject.Employees.Employee_ID);
