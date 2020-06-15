@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using DataAccessLayer;
+using IncidentManagementProject.Common;
 
 namespace NewDemoProject.Controllers
 {
@@ -17,6 +18,7 @@ namespace NewDemoProject.Controllers
         SqlConnection connection = new SqlConnection(mainConn);
         public static IncidentCategories IncidentCategories = new IncidentCategories();
         // GET: Profile
+        [LogExceptions]
         public ActionResult Index()
         {
             EmployeeProjectViewModel employeeProjectViewModel = new EmployeeProjectViewModel();
@@ -34,6 +36,7 @@ namespace NewDemoProject.Controllers
             return View(employeeProjectViewModel);
         }
         [HttpPost]
+        [LogExceptions]
         public ActionResult SaveProfileDetails(EmployeeProjectViewModel employeeProject)
         {
             try
