@@ -30,6 +30,8 @@ namespace NewDemoProject.Controllers
                 employeeProjectViewModel.Project.Project_Name = Convert.ToString(dataRow["project_name"]);
                 employeeProjectViewModel.Project.Workstation_Number = Convert.ToString(dataRow["workstation_number"]);
                 employeeProjectViewModel.Project.Extension_Number = Convert.ToString(dataRow["extension_number"]);
+                employeeProjectViewModel.Project.Department_Name = Convert.ToString(dataRow["department_name"]);
+                employeeProjectViewModel.Project.Location = Convert.ToString(dataRow["location"]);
             }
             return View(employeeProjectViewModel);
         }
@@ -44,8 +46,7 @@ namespace NewDemoProject.Controllers
                 command.Parameters.AddWithValue("@employee_id", employeeProject.Employees.Employee_ID);
                 command.Parameters.AddWithValue("@employee_name", employeeProject.Employees.Name);
                 command.Parameters.AddWithValue("@contact_number", employeeProject.Employees.Contact_Number);
-                //command.Parameters.AddWithValue();
-                command.Parameters.AddWithValue("@project_id", employeeProject.Project.Project_ID);
+                //command.Parameters.AddWithValue("@project_id", employeeProject.Project.Project_ID);
                 command.Parameters.AddWithValue("@project_name", employeeProject.Project.Project_Name);
                 command.Parameters.AddWithValue("@department_name", employeeProject.Project.Department_Name);
                 command.Parameters.AddWithValue("@location", employeeProject.Project.Location);
@@ -54,7 +55,8 @@ namespace NewDemoProject.Controllers
 
                 connection.Open();
                 command.ExecuteNonQuery();
-                return View();
+                Index();
+                return View("Index");
             }
             catch (Exception e)
             {
