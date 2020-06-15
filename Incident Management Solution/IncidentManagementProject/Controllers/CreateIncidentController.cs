@@ -86,7 +86,7 @@ namespace NewDemoProject.Controllers
                 incident.Employee.Second_Level_Manager_Name = Convert.ToString(dataRow["Second_Level_Manager_Name"]);
                 incident.Employee.Project.Project_Name = Convert.ToString(dataRow["project_name"]);
                 incident.Employee.Project.Workstation_Number = Convert.ToString(dataRow["workstation_number"]);
-                incident.Employee.Project.Extension_Number = Convert.ToString(dataRow["extention_number"]);
+                incident.Employee.Project.Extension_Number = Convert.ToString(dataRow["extension_number"]);
             }
             return incident;
 
@@ -141,6 +141,23 @@ namespace NewDemoProject.Controllers
                 connection.Close();
             }
             return RedirectToAction("OnCreatingIncident","Track");
+        }
+        public ActionResult CreateServiceIncident()
+        {
+            DataSet dataSet = IncidentCategories.GetBusinesFunction();
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (DataRow dr in dataSet.Tables[0].Rows)
+            {
+                list.Add(new SelectListItem
+                {
+                    Text = dr["name"].ToString(),
+                    Value = dr["incident_business_id"].ToString()
+                });
+            }
+            ViewBag.BusinessFunctionValues = list;
+            ViewBag.Message = "ServiceRequestIncident";
+            FetchUserDetails(Session["username"].ToString());
+            return View("CreateIncident",incident);
         }
         
     }
