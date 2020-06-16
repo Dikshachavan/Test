@@ -13,6 +13,7 @@ using NewDemoProject.ViewModel;
 using System.Text;
 using IncidentManagementProject.Common;
 using DataAccessLayer.Constants;
+using System.IO;
 
 namespace NewDemoProject.Controllers
 {
@@ -101,7 +102,6 @@ namespace NewDemoProject.Controllers
             
             try
             {
-                
                 string SR_categoryId =null;
                 string handlerID=null;
                 SqlCommand command = new SqlCommand(DBConstants.Save_Incident, connection);
@@ -144,22 +144,20 @@ namespace NewDemoProject.Controllers
             }
             return RedirectToAction("OnCreatingIncident","Track");
         }
-        public ActionResult CreateServiceIncident()
+        [HttpPost]
+        public void FileUpload()
         {
-            DataSet dataSet = IncidentCategories.GetBusinesFunction();
-            List<SelectListItem> list = new List<SelectListItem>();
-            foreach (DataRow dr in dataSet.Tables[0].Rows)
+            if (Request.Files.Count > 0)
             {
-                list.Add(new SelectListItem
+                HttpFileCollectionBase files = Request.Files;
+                for (int i = 0; i < files.Count; i++)
                 {
-                    Text = dr["name"].ToString(),
-                    Value = dr["incident_business_id"].ToString()
-                });
+                    HttpPostedFileBase file = files[i];
+                    string fileName = Path.GetFileName(Request.Files[i].FileName);
+                    fileName = Path.Combine(Server.MapPath("~/File Upload/"), fileName);
+                    file.SaveAs(fileName);
+                }
             }
-            ViewBag.BusinessFunctionValues = list;
-            ViewBag.Message = "ServiceRequestIncident";
-            FetchUserDetails(Session["username"].ToString());
-            return View("CreateIncident",incident);
         }
         
     }
