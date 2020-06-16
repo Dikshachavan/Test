@@ -52,7 +52,6 @@ namespace NewDemoProject.Controllers
                 command.Parameters.AddWithValue("@employee_id", employeeProject.Employees.Employee_ID);
                 command.Parameters.AddWithValue("@employee_name", employeeProject.Employees.Name);
                 command.Parameters.AddWithValue("@contact_number", employeeProject.Employees.Contact_Number);
-                //command.Parameters.AddWithValue("@project_id", employeeProject.Project.Project_ID);
                 command.Parameters.AddWithValue("@project_name", employeeProject.Project.Project_Name);
                 command.Parameters.AddWithValue("@department_name", employeeProject.Project.Department_Name);
                 command.Parameters.AddWithValue("@location", employeeProject.Project.Location);
