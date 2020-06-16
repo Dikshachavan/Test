@@ -31,7 +31,7 @@ namespace IncidentManagementProject.Controllers
                 Incident incidentlist = new Incident();
                 incidentlist.Incident_ID = Convert.ToInt32(ds.Tables[0].Rows[i]["incident_id"]);
                 incidentlist.Title = ds.Tables[0].Rows[i]["incident_title"].ToString();
-                incidentlist.Description = ds.Tables[0].Rows[i]["incident_description"].ToString();
+                incidentlist.Description = ds.Tables[0].Rows[i]["incident_descripton"].ToString();
                 incidentlist.raised_by = ds.Tables[0].Rows[i]["raised_by"].ToString();
                 incidentlist.status = ds.Tables[0].Rows[i]["stage"].ToString();
                 incidentlist.SupportedBy = ds.Tables[0].Rows[i]["handler_name"].ToString();

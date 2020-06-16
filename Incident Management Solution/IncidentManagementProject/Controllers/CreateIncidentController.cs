@@ -77,7 +77,7 @@ namespace NewDemoProject.Controllers
                 incident.Employee.Second_Level_Manager_Name = Convert.ToString(dataRow["Second_Level_Manager_Name"]);
                 incident.Employee.Project.Project_Name = Convert.ToString(dataRow["project_name"]);
                 incident.Employee.Project.Workstation_Number = Convert.ToString(dataRow["workstation_number"]);
-                incident.Employee.Project.Extension_Number = Convert.ToString(dataRow["extension_number"]);
+                incident.Employee.Project.Extension_Number = Convert.ToString(dataRow["extention_number"]);
             }
             return incident;
 
