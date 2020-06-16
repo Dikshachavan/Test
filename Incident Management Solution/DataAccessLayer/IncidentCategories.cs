@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
-using DataAccessLayer.Constants;
 
 namespace DataAccessLayer
 {   
     public class IncidentCategories
     {
-        public static string MainConn = ConfigurationManager.ConnectionStrings["IncidentManagement"].ConnectionString;
+        public static string MainConn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
         SqlConnection connection = new SqlConnection(MainConn);
-        DBConstants DBConstants = new DBConstants();
 
         public DataSet GetBusinesFunction()
         {
             try
             {
-                SqlCommand command = new SqlCommand(DBConstants.Incident_Business_Function, connection);
+                SqlCommand command = new SqlCommand("Inc_Business_Function_Values", connection);
                 command.CommandType = CommandType.StoredProcedure;
 
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -41,7 +39,7 @@ namespace DataAccessLayer
         {
             try
             {
-                SqlCommand command = new SqlCommand(DBConstants.Inc_Service_Values, connection);
+                SqlCommand command = new SqlCommand("Inc_Service_Values", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Inc_Business_id", Business_id);
 
@@ -63,7 +61,7 @@ namespace DataAccessLayer
         {
             try
             {
-                SqlCommand command = new SqlCommand(DBConstants.Inc_Category_Values, connection);
+                SqlCommand command = new SqlCommand("Inc_Category_Values", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Inc_Service_id", Service_id);
 
@@ -86,7 +84,7 @@ namespace DataAccessLayer
             try
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand(DBConstants.Get_Employee_Details, connection);
+                SqlCommand command = new SqlCommand("Get_Employee_Details", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@email_id", Email_id);
                 SqlDataAdapter adapter = new SqlDataAdapter(command);

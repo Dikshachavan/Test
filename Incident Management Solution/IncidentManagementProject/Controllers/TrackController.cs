@@ -11,7 +11,7 @@ using Microsoft.Ajax.Utilities;
 using NewDemoProject.Models;
 using NewDemoProject.ViewModel;
 using System.Security;
-using IncidentManagementProject.Common;
+
 
 namespace IncidentManagementProject.Controllers
 {
@@ -19,10 +19,8 @@ namespace IncidentManagementProject.Controllers
     {
         OnSubmittingIncident onSubmittingIncident = new OnSubmittingIncident();
         // GET: Track
-        [LogExceptions]
         public ActionResult OnCreatingIncident()
         {
-            
             string mail = Session["username"].ToString();
             Incident incident = new Incident();
             DataSet ds = onSubmittingIncident.GetIncidents(mail);
@@ -47,7 +45,6 @@ namespace IncidentManagementProject.Controllers
             return View(incident);
         }
 
-        [LogExceptions]
         public ActionResult TrackStatus(int incident_id)
         {
             Incident incident = new Incident();

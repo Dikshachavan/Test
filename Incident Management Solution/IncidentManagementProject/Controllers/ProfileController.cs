@@ -8,20 +8,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using DataAccessLayer;
-using IncidentManagementProject.Common;
-using DataAccessLayer.Constants;
 
 namespace NewDemoProject.Controllers
 {
     public class ProfileController : Controller
     {
-        public static string mainConn = ConfigurationManager.ConnectionStrings["IncidentManagement"].ConnectionString;
+        public static string mainConn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
         SqlConnection connection = new SqlConnection(mainConn);
         public static IncidentCategories IncidentCategories = new IncidentCategories();
-        static DBConstants DBConstants =new DBConstants();
-
         // GET: Profile
-        [LogExceptions]
         public ActionResult Index()
         {
             EmployeeProjectViewModel employeeProjectViewModel = new EmployeeProjectViewModel();
@@ -35,24 +30,22 @@ namespace NewDemoProject.Controllers
                 employeeProjectViewModel.Project.Project_Name = Convert.ToString(dataRow["project_name"]);
                 employeeProjectViewModel.Project.Workstation_Number = Convert.ToString(dataRow["workstation_number"]);
                 employeeProjectViewModel.Project.Extension_Number = Convert.ToString(dataRow["extension_number"]);
-                employeeProjectViewModel.Project.Department_Name = Convert.ToString(dataRow["department_name"]);
-                employeeProjectViewModel.Project.Location = Convert.ToString(dataRow["location"]);
             }
             return View(employeeProjectViewModel);
         }
         [HttpPost]
-        [LogExceptions]
         public ActionResult SaveProfileDetails(EmployeeProjectViewModel employeeProject)
         {
             try
             {
-                SqlCommand command = new SqlCommand(DBConstants.Save_Employee, connection);
+                SqlCommand command = new SqlCommand("save_employee", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@employee_mail_id", Session["username"]);
                 command.Parameters.AddWithValue("@employee_id", employeeProject.Employees.Employee_ID);
                 command.Parameters.AddWithValue("@employee_name", employeeProject.Employees.Name);
                 command.Parameters.AddWithValue("@contact_number", employeeProject.Employees.Contact_Number);
-                //command.Parameters.AddWithValue("@project_id", employeeProject.Project.Project_ID);
+                //command.Parameters.AddWithValue();
+                command.Parameters.AddWithValue("@project_id", employeeProject.Project.Project_ID);
                 command.Parameters.AddWithValue("@project_name", employeeProject.Project.Project_Name);
                 command.Parameters.AddWithValue("@department_name", employeeProject.Project.Department_Name);
                 command.Parameters.AddWithValue("@location", employeeProject.Project.Location);
@@ -61,8 +54,7 @@ namespace NewDemoProject.Controllers
 
                 connection.Open();
                 command.ExecuteNonQuery();
-                Index();
-                return View("Index");
+                return View();
             }
             catch (Exception e)
             {
