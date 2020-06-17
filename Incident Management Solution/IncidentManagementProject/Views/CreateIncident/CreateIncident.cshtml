@@ -263,8 +263,9 @@
                 formData.append(files[i].name, files[i]);
             }
             if (files.length <= 0) {
-                $('#SucessMessage').hide();
+               $('#SucessMessage').hide();
                 $('#SelectFile').html("Please Select File");
+                $('#SelectFile').show();
             }
             else {
                 $.ajax({
@@ -276,9 +277,13 @@
                     success: function (message) {
                         $('#SelectFile').hide();
                         $('#SucessMessage').html("File Uploaded Sucessfully");
+                        $('#SucessMessage').show();
                     },
                     error: function () {
+                        $('#SucessMessage').hide();
+                        $('#SelectFile').hide();
                         $('#ErrorMessage').html("Error while uploading files");
+                        $('#ErrorMessage').show();
                     }
                 })
             }
