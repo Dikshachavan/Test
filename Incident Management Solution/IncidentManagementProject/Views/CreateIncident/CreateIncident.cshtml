@@ -25,6 +25,7 @@
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
 
    
     <h4 style="font-size:20px; color:orangered">Enter New Incident Details</h4>
@@ -33,102 +34,105 @@
         <div class="card">
             <div class="card-body">
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Title, new { @class = "txtColor" })
-                    <span style="color:red">*</span>
-                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control col-md-8 backgroundTextColor", @placeholder = "Enter Title Here", @id = "txtTitle" })
-                    <div id="txtTitleErrorMsg" class="text-danger">
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, new { @class = "txtColor" })
+                <span style="color:red">*</span>
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control col-md-8 backgroundTextColor", @placeholder = "Enter Title Here", @id = "txtTitle" })
+                <div id="txtTitleErrorMsg" class="text-danger">
                 </div>
+            </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Description, new { @class = "txtColor" })
-                    <span style="color: red ">*</span>
-                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control col-md-8 backgroundTextColor  ckeditor", @id = "txtAreaDescription" })
-                    <div id="txtAreaDescriptionErrorMsg" class="text-danger">
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, new { @class = "txtColor" })
+                <span style="color: red ">*</span>
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control col-md-8 backgroundTextColor", @id = "txtAreaDescription" })
+                <div id="txtAreaDescriptionErrorMsg" class="text-danger">
+                    <script>
+                        CKEDITOR.replace("txtAreaDescription");
+                    </script>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <div>
-                        <h4 class="text-primary">Incident Categorization</h4>
-                        <div class="row">
+            <div class="form-group">
+                <div>
+                    <h4 class="text-primary">Incident Categorization</h4>
+                    <div class="row">
 
-                            <div class="col-md-4">
-                                <label class="form-control-label txtColor">Business Function</label>
-                                <span style="color:red">*</span>
-                                @Html.DropDownList("BusinessFunction", ViewBag.BusinessFunctionValues as List<SelectListItem>, "--Choose--", new { @id = "ddlbusinessfunction", @class = "form-control col-md-6 backgroundTextColor" })
-                                <div id="ddlBusunessFunErrorMsg" class="text-danger">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-control-label txtColor">Services</label>
-                                <span style="color:red">*</span>
-                                @Html.DropDownList("Service", new SelectList(string.Empty), "--Choose--", new { @id = "ddlServices", @class = "form-control col-md-6 backgroundTextColor" })
-                                <div id="ddlServiceErrorMsg" class="text-danger"></div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-control-label txtColor">Category</label>
-                                <span style="color:red">*</span>
-                                @Html.DropDownList("Category", new SelectList(string.Empty), "--Choose--", new { @id = "ddlCategories", @class = "form-control col-md-6 backgroundTextColor" })
-                                <div id="ddlCategoryErrorMsg" class="text-danger"></div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div id="divEmployeeDetails">
-
-                    <div id="EmployeeProjectDiv">
-                        <h4 class="text-primary">Employee Details</h4>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-sm-4">
-                                    @Html.LabelFor(model => model.Employee.First_Level_Manager_Name, new { @class = "txtColor" })
-                                    @Html.TextBoxFor(model => model.Employee.First_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
-                                </div>
-                                <div class="col-sm-4">
-                                    @Html.LabelFor(model => model.Employee.Second_Level_Manager_Name, new { @class = "txtColor" })
-                                    @Html.TextBoxFor(model => model.Employee.Second_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
-                                </div>
-                                <div class="col-sm-4">
-                                </div>
+                        <div class="col-md-4">
+                            <label class="form-control-label txtColor">Business Function</label>
+                            <span style="color:red">*</span>
+                            @Html.DropDownList("BusinessFunction", ViewBag.BusinessFunctionValues as List<SelectListItem>, "--Choose--", new { @id = "ddlbusinessfunction", @class = "form-control col-md-6 backgroundTextColor" })
+                            <div id="ddlBusunessFunErrorMsg" class="text-danger">
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-sm-4">
-                                    @Html.LabelFor(model => model.Employee.Project.Project_Name, new { @class = "txtColor" })
-                                    @Html.TextBoxFor(model => model.Employee.Project.Project_Name, new { @class = "form-control", @disabled = "disabled" })
-                                </div>
-                                <div class="col-sm-4">
-                                    @Html.LabelFor(model => model.Employee.Project.Workstation_Number, new { @class = "txtColor" })
-                                    @Html.TextBoxFor(model => model.Employee.Project.Workstation_Number, new { @class = "form-control", @disabled = "disabled" })
-                                </div>
-                                <div class="col-sm-4">
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label class="form-control-label txtColor">Services</label>
+                            <span style="color:red">*</span>
+                            @Html.DropDownList("Service", new SelectList(string.Empty), "--Choose--", new { @id = "ddlServices", @class = "form-control col-md-6 backgroundTextColor" })
+                            <div id="ddlServiceErrorMsg" class="text-danger"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-control-label txtColor">Category</label>
+                            <span style="color:red">*</span>
+                            @Html.DropDownList("Category", new SelectList(string.Empty), "--Choose--", new { @id = "ddlCategories", @class = "form-control col-md-6 backgroundTextColor" })
+                            <div id="ddlCategoryErrorMsg" class="text-danger"></div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-sm-4">
-                                    @Html.LabelFor(model => model.Employee.Project.Extension_Number, new { @class = "txtColor" })
-                                    @Html.TextBoxFor(model => model.Employee.Project.Extension_Number, new { @class = "form-control", @disabled = "disabled" })
-                                </div>
-                                <div class="col-sm-4">
-                                    @Html.LabelFor(model => model.Employee.Employee_ID, new { @class = "txtColor" })
-                                    @Html.TextBoxFor(model => model.Employee.Employee_ID, new { @class = "form-control", @disabled = "disabled" })
-                                </div>
-                                <div class="col-sm-4">
-                                </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="divEmployeeDetails">
+
+                <div id="EmployeeProjectDiv">
+                    <h4 class="text-primary">Employee Details</h4>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Employee.First_Level_Manager_Name, new { @class = "txtColor" })
+                                @Html.TextBoxFor(model => model.Employee.First_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Employee.Second_Level_Manager_Name, new { @class = "txtColor" })
+                                @Html.TextBoxFor(model => model.Employee.Second_Level_Manager_Name, new { @class = "form-control", @disabled = "disabled" })
+                            </div>
+                            <div class="col-sm-4">
                             </div>
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Employee.Project.Project_Name, new { @class = "txtColor" })
+                                @Html.TextBoxFor(model => model.Employee.Project.Project_Name, new { @class = "form-control", @disabled = "disabled" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Employee.Project.Workstation_Number, new { @class = "txtColor" })
+                                @Html.TextBoxFor(model => model.Employee.Project.Workstation_Number, new { @class = "form-control", @disabled = "disabled" })
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Employee.Project.Extension_Number, new { @class = "txtColor" })
+                                @Html.TextBoxFor(model => model.Employee.Project.Extension_Number, new { @class = "form-control", @disabled = "disabled" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Employee.Employee_ID, new { @class = "txtColor" })
+                                @Html.TextBoxFor(model => model.Employee.Employee_ID, new { @class = "form-control", @disabled = "disabled" })
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+            </div>
 
 
                 <div class="form-group">
@@ -143,14 +147,14 @@
                 <div class="text-danger" id="SelectFile"> </div>
                 &nbsp;
 
-                <div>
-                    <input type="reset" value="Cancel" class="btn btn-primary" id="btnReset" />
-                    <input type="submit" value="Submit" class="btn btn-primary" id="btnSubmitIncident" />
-                </div>
+            <div>
+                <input type="reset" value="Cancel" class="btn btn-primary" id="btnReset" />
+                <input type="submit" value="Submit" class="btn btn-primary" id="btnSubmitIncident" />
             </div>
-
         </div>
-    }
+
+    </div>
+}
 
 
 <script type="text/javascript">
@@ -223,7 +227,7 @@
             var ddlService = $('#ddlServices').val();
             var ddlCategory = $('#ddlCategories').val();
             var title = $('#txtTitle').val();
-            var description = $('#txtAreaDescription').val();
+            var description = CKEDITOR.instances['editor'].getData();
             if (title != "") {
                 $('#txtTitleErrorMsg').hide();
             }
