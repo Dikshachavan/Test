@@ -11,16 +11,21 @@ using Microsoft.Ajax.Utilities;
 using NewDemoProject.Models;
 using NewDemoProject.ViewModel;
 using System.Text;
+using IncidentManagementProject.Common;
+using DataAccessLayer.Constants;
 
 namespace NewDemoProject.Controllers
 {
+    
     public class CreateIncidentController : Controller
     {
-        public static string MainConn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+        public static string MainConn = ConfigurationManager.ConnectionStrings["IncidentManagement"].ConnectionString;
         SqlConnection connection = new SqlConnection(MainConn);
         IncidentCategories IncidentCategories=new IncidentCategories();
         Incident incident = new Incident();
+        static DBConstants DBConstants = new DBConstants();
 
+        [LogExceptions]
         // GET: CreateIncident
         public ActionResult CreateIncident()
         {
@@ -38,6 +43,8 @@ namespace NewDemoProject.Controllers
             FetchUserDetails(Session["username"].ToString());
             return View(incident);
         }
+
+        [LogExceptions]
         public JsonResult GetIncidentServices(int Business_id)
         {
             DataSet dataSet = IncidentCategories.GetServices(Business_id);
@@ -52,6 +59,8 @@ namespace NewDemoProject.Controllers
             }
             return Json(list,JsonRequestBehavior.AllowGet);
         }
+
+        [LogExceptions]
         public JsonResult GetIncidentCategories(int Service_id)
         {
             DataSet dataSet = IncidentCategories.GetCategories(Service_id);
@@ -67,6 +76,8 @@ namespace NewDemoProject.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        [LogExceptions]
         public Incident FetchUserDetails(string Email_id)
         {
             DataSet ds = IncidentCategories.GetEmployeeDetails(Email_id);
@@ -84,6 +95,7 @@ namespace NewDemoProject.Controllers
         }
 
         [ValidateInput(false)]
+        [LogExceptions]
         public ActionResult SaveCreatedIncidents(Incident incident,FormCollection formdata)
         {
             
@@ -92,7 +104,7 @@ namespace NewDemoProject.Controllers
                 
                 string SR_categoryId =null;
                 string handlerID=null;
-                SqlCommand command = new SqlCommand("save_incident", connection);
+                SqlCommand command = new SqlCommand(DBConstants.Save_Incident, connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@incident_title", incident.Title);
                 command.Parameters.AddWithValue("@incident_description", incident.Description);
@@ -131,6 +143,23 @@ namespace NewDemoProject.Controllers
                 connection.Close();
             }
             return RedirectToAction("OnCreatingIncident","Track");
+        }
+        public ActionResult CreateServiceIncident()
+        {
+            DataSet dataSet = IncidentCategories.GetBusinesFunction();
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (DataRow dr in dataSet.Tables[0].Rows)
+            {
+                list.Add(new SelectListItem
+                {
+                    Text = dr["name"].ToString(),
+                    Value = dr["incident_business_id"].ToString()
+                });
+            }
+            ViewBag.BusinessFunctionValues = list;
+            ViewBag.Message = "ServiceRequestIncident";
+            FetchUserDetails(Session["username"].ToString());
+            return View("CreateIncident",incident);
         }
         
     }

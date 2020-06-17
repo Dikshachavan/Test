@@ -6,19 +6,21 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Constants;
 
 namespace DataAccessLayer
 {
      public class OnSubmittingIncident
     {
-        public static string MainConn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+        public static string MainConn = ConfigurationManager.ConnectionStrings["IncidentManagement"].ConnectionString;
         SqlConnection connection = new SqlConnection(MainConn);
+        static DBConstants DBConstants = new DBConstants();
 
         public DataSet GetIncidents(string mail)
         {
             try
             {
-                SqlCommand command = new SqlCommand("listincidents", connection);
+                SqlCommand command = new SqlCommand(DBConstants.List_of_incidents, connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@employee_mail_id", mail);
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -41,7 +43,7 @@ namespace DataAccessLayer
         {
             try
             {
-                SqlCommand command = new SqlCommand("track_incident", connection);
+                SqlCommand command = new SqlCommand(DBConstants.Track_Incident, connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@incident_id", incident_id);
                 SqlDataAdapter da = new SqlDataAdapter(command);

@@ -8,26 +8,31 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Security;
+using IncidentManagementProject.Common;
+using DataAccessLayer.Constants;
 
 namespace IncidentManagementProject.Controllers
 {
     public class UserLoginController : Controller
     {
-        public static string mainconn = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+        public static string mainconn = ConfigurationManager.ConnectionStrings["IncidentManagement"].ConnectionString;
         SqlConnection sqlconn = new SqlConnection(mainconn);
+        DBConstants DBConstant = new DBConstants();
         // GET: UserLogin
+        [LogExceptions]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
+        [LogExceptions]
         public ActionResult Index(LoginClass lc)
         {
             try
             {
                 
-                SqlCommand sqlcomm = new SqlCommand("user_login");
+                SqlCommand sqlcomm = new SqlCommand(DBConstants.User_Login);
                 sqlconn.Open();
                 sqlcomm.Connection = sqlconn;
                 sqlcomm.CommandType = CommandType.StoredProcedure;
@@ -43,7 +48,7 @@ namespace IncidentManagementProject.Controllers
                 }
                 else
                 {
-                    ViewData["message"] = "Opps Login failed, Invalid User details !!";
+                    ViewData["message"] = DBConstants.Login_Error_Message;
                 }
                 return View();
             }
@@ -57,6 +62,8 @@ namespace IncidentManagementProject.Controllers
             }
 
         }
+
+        [LogExceptions]
         public ActionResult welcome()
         {
             return View();
