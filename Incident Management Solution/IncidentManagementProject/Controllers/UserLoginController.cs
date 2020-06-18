@@ -88,12 +88,12 @@ namespace IncidentManagementProject.Controllers
             for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
             {
                 pw.question = dataSet.Tables[0].Rows[i]["secret_question"].ToString();
-                
+
             }
-                return View(pw);
+            return View(pw);
         }
 
-        public string getAnswer(string answer,int employee_id)
+        public ActionResult getAnswer(string answer, int employee_id)
         {
             PwReset pw = new PwReset();
             SqlCommand command = new SqlCommand(DBConstants.get_answer, sqlconn);
@@ -106,16 +106,17 @@ namespace IncidentManagementProject.Controllers
             {
                 pw.answer = dataSet.Tables[0].Rows[i]["answer"].ToString();
                 pw.password = dataSet.Tables[0].Rows[i]["password"].ToString();
-               
+
             }
             if (pw.answer == answer)
             {
-                return "true";
+                return View(pw);
             }
-            else return "false";
+            else return View("wrongAnswer");
 
-            
-            
+
+
         }
     }
+
 }
