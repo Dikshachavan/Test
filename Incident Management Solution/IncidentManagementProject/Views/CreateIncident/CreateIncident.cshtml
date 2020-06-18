@@ -27,19 +27,12 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/ckeditor/ckeditor.js"></script>
 
-
-@if (ViewBag.Message == "ServiceRequestIncident")
-{
-    <h4 style="font-size:20px; color:orangered">Enter New Service Request Details</h4>
-}
-else
-{
+   
     <h4 style="font-size:20px; color:orangered">Enter New Incident Details</h4>
-}
-@using (@Html.BeginForm("SaveCreatedIncidents", "CreateIncident", FormMethod.Post))
-{
-    <div class="card">
-        <div class="card-body">
+    @using (@Html.BeginForm("SaveCreatedIncidents", "CreateIncident", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="card">
+            <div class="card-body">
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Title, new { @class = "txtColor" })
@@ -142,10 +135,17 @@ else
             </div>
 
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Attachment)
-                @*<input type="file" name="File Attachment" />*@
-            </div>
+                <div class="form-group">
+                    <label class="txtColor">Attachment:</label>
+                    <input id="fileInput" class="col-md-4" type="file" name="File Attachment" multiple/>
+                </div>
+                <div>
+                    <input id="FileUpload" type="button" name="Upload" value="Upload File" />
+                </div>
+                <div class="text-success" id="SucessMessage"></div>
+                <div class="text-danger" id="ErrorMessage"></div>
+                <div class="text-danger" id="SelectFile"> </div>
+                &nbsp;
 
             <div>
                 <input type="reset" value="Cancel" class="btn btn-primary" id="btnReset" />
@@ -254,7 +254,40 @@ else
             }
 
         })
+        $('#FileUpload').click(function () {
+            var uploadedFiles = $("#fileInput").get(0);
+            var files = uploadedFiles.files;
+            var formData = new FormData();
 
+            for (var i = 0; i < files.length; i++) {
+                formData.append(files[i].name, files[i]);
+            }
+            if (files.length <= 0) {
+               $('#SucessMessage').hide();
+                $('#SelectFile').html("Please Select File");
+                $('#SelectFile').show();
+            }
+            else {
+                $.ajax({
+                    url: '/CreateIncident/FileUpload',
+                    type: 'Post',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (message) {
+                        $('#SelectFile').hide();
+                        $('#SucessMessage').html("File Uploaded Sucessfully");
+                        $('#SucessMessage').show();
+                    },
+                    error: function () {
+                        $('#SucessMessage').hide();
+                        $('#SelectFile').hide();
+                        $('#ErrorMessage').html("Error while uploading files");
+                        $('#ErrorMessage').show();
+                    }
+                })
+            }
+        })
 
     })
 </script>

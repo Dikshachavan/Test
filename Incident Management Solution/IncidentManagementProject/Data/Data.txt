@@ -1,18 +1,3 @@
 ﻿
 Track->OnCreatingIncident-> new exception	 -6/15/2020 12:19:15 PM
 -----------------
-UserLogin->Index-> employee_name	 -6/16/2020 11:55:40 AM
------------------
-CreateIncident->CreateIncident-> Object reference not set to an instance of an object.	 -6/16/2020 12:22:43 PM
------------------
-CreateIncident->SaveCreatedIncidents-> Procedure or function 'save_incident' expects parameter '@incident_description', which was not supplied.	 -6/16/2020 1:06:11 PM
------------------
-CreateIncident->CreateIncident-> Object reference not set to an instance of an object.	 -6/16/2020 1:06:33 PM
------------------
-CreateIncident->CreateIncident-> A space or line break was encountered after the "@" character.  Only valid identifiers, keywords, comments, "(" and "{" are valid at the start of a code block and they must occur immediately following "@" with no space in between.
-	 -6/16/2020 1:06:56 PM
------------------
-CreateIncident->CreateIncident-> Object reference not set to an instance of an object.	 -6/16/2020 1:39:24 PM
------------------
-CreateIncident->CreateIncident-> Object reference not set to an instance of an object.	 -6/16/2020 1:42:08 PM
------------------

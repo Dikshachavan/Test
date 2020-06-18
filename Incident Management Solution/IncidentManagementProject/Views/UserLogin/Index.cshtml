@@ -9,13 +9,21 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Incident Management</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+
     <script>
         $(document).ready(function () {
             $('#errorMsg').css('display', 'none');
         })
     </script>
+
 </head>
 <body>
     @Scripts.Render("~/bundles/jquery")
