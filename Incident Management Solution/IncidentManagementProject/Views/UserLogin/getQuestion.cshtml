@@ -1,0 +1,54 @@
+﻿@model IncidentManagementProject.Models.PwReset
+
+@{
+    Layout = null;
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="card">
+    <div class="card-body">
+        <h2 style="color:blue">Secret Question</h2>
+        
+
+            @Html.HiddenFor(model => model.employee_id ,new { @id="employeeid"})
+            <br />
+            @Html.LabelFor(model => model.question)
+            <br />
+
+            @Html.TextBoxFor(model => model.question, new { @class = "form-control col-md-8 backgroundTextColor",@id="question" })
+            <br />
+            @Html.LabelFor(model => model.answer)
+            <br />
+            @Html.TextBoxFor(model => model.answer, new { @class = "form-control col-md-8 backgroundTextColor", @id = "answer" })
+            <br />
+            <button type="submit" class="btn btn-primary" id="getanswer" onclick="clicked()">Get Password</button>
+
+        
+    </div>
+</div>
+
+<script type="text/javascript">
+   
+        function clicked() {
+            if ($('#question').val() == '' || $('#question').val() == null || $('#answer').val() == '' || $('#answer').val() == null) {
+                alert('All Fields are Mandatory');
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "UserLogin/getAnswer",
+                    data: {
+                        answer: $('#answer').val(),
+                        employee_id: $('#employeeid')
+                    }
+                });
+
+                alert(answer);
+            }
+        }
+    
+    
+</script>

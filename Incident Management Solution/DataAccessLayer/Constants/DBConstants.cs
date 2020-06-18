@@ -18,5 +18,7 @@ namespace DataAccessLayer.Constants
         public const string Save_Incident= "save_incident";
         public const string User_Login = "user_login";
         public const string Login_Error_Message = "Opps Login failed, Invalid User details !!";
+        public const string get_question = "get_question";
+        public const string get_answer = "get_answer";
     }
 }

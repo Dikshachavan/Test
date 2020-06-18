@@ -59,14 +59,16 @@
             <div class="form-group" style="margin-left:100px;">
                 <input class="btn btn-primary" type="submit" value="Login" />&nbsp;&nbsp;
                 <input class="btn btn-primary" type="reset" value="Cancel" />
+                <br />  
+                <br />
+                @Html.ActionLink("Forgot Password ?","ResetPassword")
             </div>
+            
         </div>
 
         <h5 id="errorMsg" class="text-danger"> @ViewData["message"]</h5>
     </div>
  
-
-
     }
 
 
