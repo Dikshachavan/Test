@@ -76,12 +76,12 @@ namespace IncidentManagementProject.Controllers
             return View(pw);
         }
 
-        public ActionResult getQuestion(int employee_id)
+        public ActionResult getQuestion(string employee_mail_id)
         {
             PwReset pw = new PwReset();
             SqlCommand command = new SqlCommand(DBConstants.get_question, sqlconn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@employee_id", employee_id);
+            command.Parameters.AddWithValue("@employee_mail_id", employee_mail_id);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataSet dataSet = new DataSet();
             adapter.Fill(dataSet);
@@ -93,12 +93,12 @@ namespace IncidentManagementProject.Controllers
             return View(pw);
         }
 
-        public ActionResult getAnswer(string answer, int employee_id)
+        public ActionResult getAnswer(string answer, string employee_mail_id)
         {
             PwReset pw = new PwReset();
             SqlCommand command = new SqlCommand(DBConstants.get_answer, sqlconn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@employee_id", employee_id);
+            command.Parameters.AddWithValue("@employee_mail_id", employee_mail_id);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataSet dataSet = new DataSet();
             adapter.Fill(dataSet);

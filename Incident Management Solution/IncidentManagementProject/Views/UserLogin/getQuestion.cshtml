@@ -15,7 +15,7 @@
         @using (Html.BeginForm("getAnswer", "UserLogin", FormMethod.Get))
         {
 
-            @Html.HiddenFor(model => model.employee_id, new { @id = "employeeid" })
+            @Html.HiddenFor(model => model.employee_mail_id, new { @id = "employee_mail_id" })
             <br />
             @Html.LabelFor(model => model.question)
             <br />
