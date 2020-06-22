@@ -43,7 +43,7 @@ namespace IncidentManagementProject.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(lc.UserName, true);
                     Session["username"] = lc.UserName.ToString();
-                    Session["employeeName"] = Convert.ToString(sdr["employee_mail_id"]);
+                    Session["employeeName"] = Convert.ToString(sdr["employee_name"]);
                     return RedirectToAction("Index", "LandingPage");
                 }
                 else
