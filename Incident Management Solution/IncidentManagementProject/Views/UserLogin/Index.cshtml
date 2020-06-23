@@ -11,70 +11,95 @@
     <meta name="viewport" content="width=device-width" />
     <title>Incident Management</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>
-
-    
-
-</head>
-<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     <link href="~/Content/Site.css" rel="stylesheet" />
     <style>
-        .container-fluid{
-            
-            margin-left:450px;
+        .container-fluid {
+            margin-left: 450px;
+        }
+
+        .passwordIcon {
+            position: fixed;
+            top: 255px;
+            padding: 0 10px;
+            padding-right: 20px;
+            right: 600px;
         }
     </style>
 
-
+</head>
+<body>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-    <div class="container-fluid">
-        <div class="form-horizontal">
+        <div class="container-fluid">
+            <div class="form-horizontal">
 
-            <h1 class="text-white" style="margin-left:100px">Login</h1>
-            <br />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2 text-white" })
-                <div class="col-lg-4">
-                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 text-white" })
-                <div class="col-lg-4">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <br />
-            <div class="form-group" style="margin-left:100px;">
-                <input class="btn btn-primary" type="submit" value="Login" />&nbsp;&nbsp;
-                <input class="btn btn-primary" type="reset" value="Cancel" />
-                <br />  
+                <h1 class="text-white" style="margin-left:100px">Login</h1>
                 <br />
-                @Html.ActionLink("Forgot Password ?","ResetPassword")
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2 text-white" })
+                    <div class="col-lg-4">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group-lg">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 text-white" })
+                    <div class="col-lg-4">
+                        <div class="input-group" id="show_hide_password">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                            <div class="input-group-addon passwordIcon">
+                                <a href=""><i class="fa fa-eye-slash" style="color:black" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <br />
+                <div class="form-group" style="margin-left:100px;">
+                    <input class="btn btn-primary" type="submit" value="Login" />&nbsp;&nbsp;
+                    <input class="btn btn-primary" type="reset" value="Cancel" />
+                    <br />
+                    <br />
+                    @Html.ActionLink("Forgot Password ?", "ResetPassword")
+                </div>
+
             </div>
-            
+
+            <h5 id="errorMsg" class="text-danger"> @ViewData["message"]</h5>
         </div>
 
-        <h5 id="errorMsg" class="text-danger"> @ViewData["message"]</h5>
-    </div>
- 
     }
 
 
 </body>
 </html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#show_hide_password a").on('click', function (event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("fa-eye-slash");
+                $('#show_hide_password i').removeClass("fa-eye");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("fa-eye-slash");
+                $('#show_hide_password i').addClass("fa-eye");
+            }
+        });
+    });
+</script>
