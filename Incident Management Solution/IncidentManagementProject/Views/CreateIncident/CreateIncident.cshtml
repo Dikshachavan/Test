@@ -11,15 +11,17 @@
         width: 900px !important;
     }
 
-    .backgroundtextcolor {
+    /*.backgroundtextcolor {
         background-color: #f0f0f0 !important;
-    }
+    }*/
 
     .txtColor {
         color: #395476 !important;
         font-weight: bold;
     }
 </style>
+@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/CreateIncident.js"></script>
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
@@ -27,12 +29,12 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/ckeditor/ckeditor.js"></script>
 
-   
-    <h4 style="font-size:20px; color:orangered">Enter New Incident Details</h4>
-    @using (@Html.BeginForm("SaveCreatedIncidents", "CreateIncident", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <div class="card">
-            <div class="card-body">
+
+<h4 style="font-size:20px; color:orangered">Enter New Incident Details</h4>
+@using (@Html.BeginForm("SaveCreatedIncidents", "CreateIncident", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Title, new { @class = "txtColor" })
@@ -49,6 +51,7 @@
                 <div id="txtAreaDescriptionErrorMsg" class="text-danger">
                     <script>
                         CKEDITOR.replace("txtAreaDescription");
+                        CKEDITOR.config.width = 870;
                     </script>
                 </div>
             </div>
@@ -135,17 +138,17 @@
             </div>
 
 
-                <div class="form-group">
-                    <label class="txtColor">Attachment:</label>
-                    <input id="fileInput" class="col-md-4" type="file" name="File Attachment" multiple/>
-                </div>
-                <div>
-                    <input id="FileUpload" type="button" name="Upload" value="Upload File" />
-                </div>
-                <div class="text-success" id="SucessMessage"></div>
-                <div class="text-danger" id="ErrorMessage"></div>
-                <div class="text-danger" id="SelectFile"> </div>
-                &nbsp;
+            <div class="form-group">
+                <label class="txtColor">Attachment:</label>
+                <input id="fileInput" class="col-md-4" type="file" name="File Attachment" multiple />
+            </div>
+            <div>
+                <input id="FileUpload" type="button" name="Upload" value="Upload File" />
+            </div>
+            <div class="text-success" id="SucessMessage"></div>
+            <div class="text-danger" id="ErrorMessage"></div>
+            <div class="text-danger" id="SelectFile"> </div>
+            &nbsp;
 
             <div>
                 <input type="reset" value="Cancel" class="btn btn-primary" id="btnReset" />
@@ -157,137 +160,3 @@
 }
 
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#divEmployeeDetails').hide();
-
-        $('#ddlbusinessfunction').change(function () {
-            if ($('#ddlbusinessfunction').val() == "") {
-                $("#ddlServices").empty();
-                $('#ddlCategories').empty();
-                $("#ddlServices").append($('<option/>', { value: -1, text: '--Choose--' }));
-                $('#ddlCategories').append($('<option/>', { value: -1, text: '--Choose--' }));
-                $('#divEmployeeDetails').hide();
-                $('#ddlBusunessFunErrorMsg').show();
-            }
-            else {
-                $.ajax({
-                    url: '/CreateIncident/GetIncidentServices',
-                    method: 'Get',
-                    data: { Business_id: $(this).val() },
-                    dataType: 'json',
-                    success: function (data) {
-                        $('#ddlServices').empty();
-                        $('#ddlServices').append($('<option/>', { value: -1, text: '--Choose--' }))
-                        $(data).each(function (index, item) {
-                            $('#ddlServices').append($('<option/>', { value: item.Value, text: item.Text }));
-                        })
-                        $('#divEmployeeDetails').show();
-                        $('#ddlBusunessFunErrorMsg').hide();
-                    }
-
-
-                });
-            }
-        })
-        $('#ddlServices').change(function () {
-            if (($('#ddlServices').val() == "") || ($('#ddlServices').val() == "-1")) {
-                $('#ddlCategories').empty();
-                $('#ddlCategories').append($('<option/>', { value: -1, text: '--Choose--' }));
-                $('#ddlServiceErrorMsg').show();
-            }
-            else {
-                $.ajax({
-                    url: '/CreateIncident/GetIncidentCategories',
-                    data: { Service_id: $(this).val() },
-                    method: 'Get',
-                    dataType: 'json',
-                    success: function (data) {
-                        $(data).each(function (index, item) {
-                            $('#ddlCategories').append($('<option/>', { value: item.Value, text: item.Text }))
-                        })
-                        $('#ddlServiceErrorMsg').hide();
-                    }
-                });
-            }
-        })
-        $('#ddlCategories').change(function () {
-            var ddlCategory = $('#ddlCategories').val();
-            if (ddlCategory == "" || ddlCategory == "-1") {
-                $('#ddlCategoryErrorMsg').show();
-            }
-            else {
-                $('#ddlCategoryErrorMsg').hide();
-            }
-
-        })
-
-        $('#btnSubmitIncident').click(function () {
-            var ddlBusinessFunction = $('#ddlbusinessfunction').val();
-            var ddlService = $('#ddlServices').val();
-            var ddlCategory = $('#ddlCategories').val();
-            var title = $('#txtTitle').val();
-            var description = CKEDITOR.instances['editor'].getData();
-            if (title != "") {
-                $('#txtTitleErrorMsg').hide();
-            }
-            if (description != "") {
-                $('#txtAreaDescriptionErrorMsg').hide();
-            }
-            if (ddlService == "" || ddlService == "-1") {
-                $('#ddlServiceErrorMsg').html("Please select Service");
-            }
-            if (title == "" || description == "" || ddlBusinessFunction == "" || ddlCategory == "" || ddlCategory == "-1") {
-                $('#txtTitleErrorMsg').html("Please Provide Incident Title");
-                $('#txtAreaDescriptionErrorMsg').html("Please Provide Incident Description");
-                $('#ddlBusunessFunErrorMsg').html("Please select business function");
-                $('#ddlCategoryErrorMsg').html("Please select Category");
-                return false;
-            }
-            else if (title != "" || description != "" || ddlBusinessFunction != "" || ddlService != "" || ddlCategory != "") {
-                $('#txtTitleErrorMsg').hide();
-                $('#txtAreaDescriptionErrorMsg').hide();
-                $('#ddlBusunessFunErrorMsg').hide();
-                $('#ddlServiceErrorMsg').hide();
-                $('#ddlCategoryErrorMsg').hide();
-                return true;
-            }
-
-        })
-        $('#FileUpload').click(function () {
-            var uploadedFiles = $("#fileInput").get(0);
-            var files = uploadedFiles.files;
-            var formData = new FormData();
-
-            for (var i = 0; i < files.length; i++) {
-                formData.append(files[i].name, files[i]);
-            }
-            if (files.length <= 0) {
-               $('#SucessMessage').hide();
-                $('#SelectFile').html("Please Select File");
-                $('#SelectFile').show();
-            }
-            else {
-                $.ajax({
-                    url: '/CreateIncident/FileUpload',
-                    type: 'Post',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (message) {
-                        $('#SelectFile').hide();
-                        $('#SucessMessage').html("File Uploaded Sucessfully");
-                        $('#SucessMessage').show();
-                    },
-                    error: function () {
-                        $('#SucessMessage').hide();
-                        $('#SelectFile').hide();
-                        $('#ErrorMessage').html("Error while uploading files");
-                        $('#ErrorMessage').show();
-                    }
-                })
-            }
-        })
-
-    })
-</script>
