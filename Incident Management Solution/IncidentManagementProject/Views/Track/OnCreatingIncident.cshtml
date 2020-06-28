@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="d-flex bd-highlight mb-3" style="font-size:small; height:60px">
-                        <div class="p-2 bd-highlight"><label><b>Description</b> : <br />@Html.DisplayFor(modelitem => item.Description)</label> </div>
+                        <div class="p-2 bd-highlight"><label><b>Description</b> : <br />@Html.Raw(item.Description)</label> </div>
                         <div class="ml-auto p-2 bd-highlight"><p><b>Supported By</b> : <br />  @Html.DisplayFor(modelitem => item.SupportedBy)</p></div>
                     </div>
                     <hr />

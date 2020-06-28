@@ -18,5 +18,8 @@ namespace IncidentManagementProject.Models
         public string employee_mail_id { get; set; }
 
         public string password { get; set; }
+        [Display(Name = "Emloyee ID")]
+        [Required(ErrorMessage = "Please Provide Employee ID before submitting")]
+        public int EmployeeID { get; set; }
     }
 }

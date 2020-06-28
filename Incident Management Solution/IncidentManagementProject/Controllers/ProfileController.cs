@@ -26,7 +26,7 @@ namespace NewDemoProject.Controllers
         {
             EmployeeProjectViewModel employeeProjectViewModel = new EmployeeProjectViewModel();
             employeeProjectViewModel.Employees.Email_ID = Convert.ToString(Session["username"]);
-            DataSet ds = IncidentCategories.GetEmployeeDetails(Convert.ToString(Session["username"]));
+            DataSet ds = IncidentCategories.GetEmployeeDetails(Convert.ToInt32(Session["employeeID"]));
             foreach (DataRow dataRow in ds.Tables[0].Rows)
             {
                 employeeProjectViewModel.Employees.Employee_ID = Convert.ToInt32(dataRow["employee_id"]);
@@ -36,7 +36,7 @@ namespace NewDemoProject.Controllers
                 employeeProjectViewModel.Project.Workstation_Number = Convert.ToString(dataRow["workstation_number"]);
                 employeeProjectViewModel.Project.Extension_Number = Convert.ToString(dataRow["extension_number"]);
                 employeeProjectViewModel.Project.Department_Name = Convert.ToString(dataRow["department_name"]);
-                employeeProjectViewModel.Project.Location = Convert.ToString(dataRow["location"]);
+                employeeProjectViewModel.Project.Location = Convert.ToString(dataRow["employee_location"]);
             }
             return View(employeeProjectViewModel);
         }
@@ -48,8 +48,8 @@ namespace NewDemoProject.Controllers
             {
                 SqlCommand command = new SqlCommand(DBConstants.Save_Employee, connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@employee_mail_id", Session["username"]);
-                command.Parameters.AddWithValue("@employee_id", employeeProject.Employees.Employee_ID);
+                command.Parameters.AddWithValue("@employee_id", Session["employeeID"]);
+                command.Parameters.AddWithValue("@employee_mail_id", employeeProject.Employees.Email_ID);
                 command.Parameters.AddWithValue("@employee_name", employeeProject.Employees.Name);
                 command.Parameters.AddWithValue("@contact_number", employeeProject.Employees.Contact_Number);
                 command.Parameters.AddWithValue("@project_name", employeeProject.Project.Project_Name);

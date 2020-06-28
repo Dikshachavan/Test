@@ -44,6 +44,7 @@ namespace IncidentManagementProject.Controllers
                     FormsAuthentication.SetAuthCookie(lc.UserName, true);
                     Session["username"] = lc.UserName.ToString();
                     Session["employeeName"] = Convert.ToString(sdr["employee_name"]);
+                    Session["employeeID"] = Convert.ToInt32(sdr["employee_id"]);
                     return RedirectToAction("Index", "LandingPage");
                 }
                 else
@@ -76,12 +77,12 @@ namespace IncidentManagementProject.Controllers
             return View(pw);
         }
 
-        public ActionResult getQuestion(string employee_mail_id)
+        public ActionResult getQuestion(int EmployeeID)
         {
             PwReset pw = new PwReset();
             SqlCommand command = new SqlCommand(DBConstants.get_question, sqlconn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@employee_mail_id", employee_mail_id);
+            command.Parameters.AddWithValue("@employee_id", EmployeeID);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataSet dataSet = new DataSet();
             adapter.Fill(dataSet);
@@ -93,19 +94,19 @@ namespace IncidentManagementProject.Controllers
             return View(pw);
         }
 
-        public ActionResult getAnswer(string answer, string employee_mail_id)
+        public ActionResult getAnswer(string answer, int EmployeeID)
         {
             PwReset pw = new PwReset();
             SqlCommand command = new SqlCommand(DBConstants.get_answer, sqlconn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@employee_mail_id", employee_mail_id);
+            command.Parameters.AddWithValue("@employee_id", EmployeeID);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataSet dataSet = new DataSet();
             adapter.Fill(dataSet);
             for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
             {
                 pw.answer = dataSet.Tables[0].Rows[i]["answer"].ToString();
-                pw.password = dataSet.Tables[0].Rows[i]["password"].ToString();
+                pw.password = dataSet.Tables[0].Rows[i]["employee_password"].ToString();
 
             }
             if (pw.answer == answer)

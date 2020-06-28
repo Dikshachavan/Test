@@ -12,6 +12,7 @@ namespace NewDemoProject.Models
         public int Project_ID { get; set; }
         [Display(Name ="Project")]
         public string Project_Name { get; set; }
+        [Display(Name = "Department Name")]
         public string Department_Name { get; set; }
         public string  Location { get; set; }
         [Display(Name ="Workstation")]

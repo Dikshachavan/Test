@@ -36,12 +36,12 @@ namespace NewDemoProject.Controllers
             {
                 list.Add(new SelectListItem
                 {
-                    Text=dr["name"].ToString(),
-                    Value=dr["incident_business_id"].ToString()
+                    Text=dr["business_name"].ToString(),
+                    Value=dr["business_id"].ToString()
                 });
             }
             ViewBag.BusinessFunctionValues = list;
-            FetchUserDetails(Session["username"].ToString());
+            FetchUserDetails(Convert.ToInt32(Session["employeeID"]));
             return View(incident);
         }
 
@@ -54,8 +54,8 @@ namespace NewDemoProject.Controllers
             {
                 list.Add(new SelectListItem
                 {
-                    Text=dr["name"].ToString(),
-                    Value=dr["incident_service_id"].ToString()
+                    Text=dr["service_type_name"].ToString(),
+                    Value=dr["service_id"].ToString()
                 });
             }
             return Json(list,JsonRequestBehavior.AllowGet);
@@ -70,8 +70,8 @@ namespace NewDemoProject.Controllers
             {
                 list.Add(new SelectListItem
                 {
-                    Text = dr["name"].ToString(),
-                    Value = dr["incident_category_id"].ToString()
+                    Text = dr["category_name"].ToString(),
+                    Value = dr["category_id"].ToString()
                 });
             }
 
@@ -79,14 +79,14 @@ namespace NewDemoProject.Controllers
         }
 
         [LogExceptions]
-        public Incident FetchUserDetails(string Email_id)
+        public Incident FetchUserDetails(int EmployeeID)
         {
-            DataSet ds = IncidentCategories.GetEmployeeDetails(Email_id);
+            DataSet ds = IncidentCategories.GetEmployeeDetails(EmployeeID);
             foreach (DataRow dataRow in ds.Tables[0].Rows)
             {
                 incident.Employee.Employee_ID = Convert.ToInt32(dataRow["employee_id"]);
-                incident.Employee.First_Level_Manager_Name = Convert.ToString(dataRow["First_Level_Manager_Name"]);
-                incident.Employee.Second_Level_Manager_Name = Convert.ToString(dataRow["Second_Level_Manager_Name"]);
+                incident.Employee.First_Level_Manager_Name = Convert.ToString(dataRow["first_level_manager_name"]);
+                incident.Employee.Second_Level_Manager_Name = Convert.ToString(dataRow["second_level_manager_name"]);
                 incident.Employee.Project.Project_Name = Convert.ToString(dataRow["project_name"]);
                 incident.Employee.Project.Workstation_Number = Convert.ToString(dataRow["workstation_number"]);
                 incident.Employee.Project.Extension_Number = Convert.ToString(dataRow["extension_number"]);
@@ -102,16 +102,16 @@ namespace NewDemoProject.Controllers
             
             try
             {
-                string SR_categoryId =null;
+                //string SR_categoryId =null;
                 string handlerID=null;
                 SqlCommand command = new SqlCommand(DBConstants.Save_Incident, connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@incident_title", incident.Title);
                 command.Parameters.AddWithValue("@incident_description", incident.Description);
-                command.Parameters.AddWithValue("@incident_category_id", formdata["Category"]);
-                command.Parameters.AddWithValue("@category_id", SR_categoryId);
+                command.Parameters.AddWithValue("@category_id", formdata["Category"]);
+                //command.Parameters.AddWithValue("@category_id", SR_categoryId);
                 command.Parameters.AddWithValue("@handler_id", handlerID);
-                command.Parameters.AddWithValue("@raised_by", Session["username"]);
+                command.Parameters.AddWithValue("@raised_by", Session["employeeID"]);
                 command.Parameters.AddWithValue("@attachment", incident.Attachment);
                 if (incident.created_on == null)
                 {

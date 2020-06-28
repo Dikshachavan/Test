@@ -23,9 +23,9 @@ namespace IncidentManagementProject.Controllers
         public ActionResult OnCreatingIncident()
         {
             
-            string mail = Session["username"].ToString();
+            int employeeID =Convert.ToInt32(Session["employeeID"]);
             Incident incident = new Incident();
-            DataSet ds = onSubmittingIncident.GetIncidents(mail);
+            DataSet ds = onSubmittingIncident.GetIncidents(employeeID);
             List<Incident> incidentlists = new List<Incident>();
 
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
