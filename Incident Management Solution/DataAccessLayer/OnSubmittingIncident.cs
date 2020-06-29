@@ -16,13 +16,13 @@ namespace DataAccessLayer
         SqlConnection connection = new SqlConnection(MainConn);
         static DBConstants DBConstants = new DBConstants();
 
-        public DataSet GetIncidents(string mail)
+        public DataSet GetIncidents(int employeeID)
         {
             try
             {
                 SqlCommand command = new SqlCommand(DBConstants.List_of_incidents, connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@employee_mail_id", mail);
+                command.Parameters.AddWithValue("@employee_id", employeeID);
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
                 DataSet dataSet = new DataSet();
                 adapter.Fill(dataSet);

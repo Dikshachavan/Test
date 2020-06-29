@@ -81,14 +81,14 @@ namespace DataAccessLayer
                 connection.Close();
             }            
         }
-        public DataSet GetEmployeeDetails(string Email_id)
+        public DataSet GetEmployeeDetails(int EmployeeID)
         {
             try
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand(DBConstants.Get_Employee_Details, connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@email_id", Email_id);
+                command.Parameters.AddWithValue("@employee_id", EmployeeID);
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
                 DataSet dataSet = new DataSet();
                 adapter.Fill(dataSet);
