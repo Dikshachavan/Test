@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace NewDemoProject.Models
 {
@@ -18,6 +19,7 @@ namespace NewDemoProject.Models
 
         [Required(ErrorMessage = "Please Provide Incident Description")]
         [Display(Name = "Incident Description")]
+        [AllowHtml]
         public string Description { get; set; }
         public string raised_by { get; set; }
 

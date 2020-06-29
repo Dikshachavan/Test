@@ -88,7 +88,7 @@ namespace IncidentManagementProject.Controllers
             adapter.Fill(dataSet);
             for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
             {
-                pw.question = dataSet.Tables[0].Rows[i]["secret_question"].ToString();
+                pw.question =Convert.ToString(dataSet.Tables[0].Rows[i]["secret_question"]);
 
             }
             return View(pw);
@@ -105,8 +105,8 @@ namespace IncidentManagementProject.Controllers
             adapter.Fill(dataSet);
             for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
             {
-                pw.answer = dataSet.Tables[0].Rows[i]["answer"].ToString();
-                pw.password = dataSet.Tables[0].Rows[i]["employee_password"].ToString();
+                pw.answer =Convert.ToString(dataSet.Tables[0].Rows[i]["answer"]);
+                pw.password =Convert.ToString(dataSet.Tables[0].Rows[i]["employee_password"]);
 
             }
             if (pw.answer == answer)

@@ -1,0 +1,79 @@
+﻿@model NewDemoProject.Models.Incident
+
+@{
+    ViewBag.Title = "DisplayIncidents";
+}
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"></link>*@
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/umd/popper.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<style>
+    #incidentHeading{
+        border-left:5px solid lightblue;
+    }
+</style>
+<div class="container">
+    <h3 style="font-family:Arial;padding-top:10px;padding-bottom:10px"><b>@Model.incidentarray.Count Ticket(s)</b> in my Queue</h3>
+
+        <div id="accordion" role="tablist">
+
+            @foreach (var item in Model.incidentarray)
+            {
+                var IncidentID = "collapse" + item.Incident_ID;
+
+                <div class="card shadow mb-3 bg-white rounded" id="incidentHeading">
+                    <div class="card-header" id="headingOne">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#@IncidentID" aria-expanded="true" aria-controls="collapseOne">
+                                INCIDENT @Html.DisplayFor(modelitem => item.Incident_ID):
+                            </button>
+                            <span class="text-primary">
+                                @Html.DisplayFor(modelitem => item.Title)
+                            </span>
+                    </div>
+
+                    
+                    <div id="@IncidentID" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <strong>Incident Description:</strong>
+                                    @Html.Raw(item.Description)
+                                </div>
+
+                                <div class="col-4">
+                                    <span><strong>Status: </strong>@Html.DisplayFor(modelitem => item.status)</span>
+                                </div>
+
+                                <div class="col-4">
+                                    <span><strong>Submitted By: </strong>@Html.DisplayFor(modelitem => item.Employee.Name)</span>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-4">
+                                    <span>
+                                        <strong>Created On: </strong>@Html.DisplayFor(modelitem=>item.created_on)
+                                    </span>
+                                </div>
+
+                                <div class="col-4">
+                                    <span>
+                                        <strong>Last Edited On: </strong>@Html.DisplayFor(modelitem => item.altered_on)
+                                    </span>
+                                </div>
+
+                                <div class="col-4">
+                                    <span>
+                                        <strong>Supported By: </strong>@Html.DisplayFor(modelitem=>item.SupportedBy)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>         
+            }
+        </div>    
+</div>
+
+
